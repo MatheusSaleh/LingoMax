@@ -141,9 +141,39 @@ void leituraDeUsuarios(struct Usuarios usuarios[], int &cont){
     }
 }
 
+void inclusaoNaTabelaDeIdiomas(struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int &cont, int cod){
+    cont++;
+    idiomas[cont].codigo = cod;
+    cout << "Descricao: ";
+    gets(idiomas[cont].descricao);
+    int i;
+    for (i = cont - 1; indiceIdioma[i].codigo > cod; i--){
+        indiceIdioma[i + 1].codigo = indiceIdioma[i].codigo;
+        indiceIdioma[i + 1].endereco = indiceIdioma[i].endereco;
+    }
+    indiceIdioma[i + 1].codigo = cod;
+    indiceIdioma[i + 1].endereco = cont;
+    cout << "\n\nInclusao Realizada Com Sucesso";
+}
 
-
-
+void buscaAleatoriaNaTabelaDeIdiomas(struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int &cont, int cod){
+    int i = 0, f = cont;
+    int m = (i + f) / 2;
+    for(; f >= i && cod != indiceIdioma[m].codigo; m = (i+f) / 2){
+        if(cod > indiceIdioma[m].codigo)
+            i = m + 1;
+        else
+            f = m - 1;
+    }
+    if(cod == indiceIdioma[i].codigo){
+        cout << "\n\n Idioma ja cadastrado - nao pode ser cadastrado novamente";
+        i = indiceIdioma[m].endereco;
+        cout << "\nCodigo do Idioma: " << idiomas[i].codigo;
+        cout << "\tDescricao: " << idiomas[i].descricao;
+    }
+    else
+        inclusaoNaTabelaDeIdiomas(indiceIdioma, idiomas, cont, cod);
+}
 
 int main(){
     //INDICES
@@ -178,6 +208,7 @@ int main(){
       cout << "6 - Realizar Leitura da Tabela de Licoes \n";
       cout << "7 - Realizar Leitura da Tabela de Exercicios \n";
       cout << "8 - Realizar Leitura da Tabela de Usuarios \n";
+      cout << "9 - Realizar Inclusao na Tabela de Idioma \n";
       cout << "0 - Para Encerrar\n";
       cin >> opcao;
       switch(opcao)
@@ -205,12 +236,17 @@ int main(){
       case 6:
         cout << "Voce escolheu realizar a leitura da tabela de licoes \n";
         leituraDeLicoes(vLicoes, quantidadeDeLicoes);
+        break;
       case 7:
         cout << "Voce escolheu realizar a leitura da tabela de exercicios \n";
         leituraDeExercicios(vExercicios, quantidadeDeExercicios);
+        break;
       case 8:
         cout << "Voce escolheu realizar a leitura da tabela de usuarios \n";
         leituraDeUsuarios(vUsuarios, quantidadeDeUsuarios);
+      case 9:
+        cout << "Voce escolheu realizar inclusao na tabela de Idiomas";
+        break;
       case 0:
         cout << "Encerrando o programa... \n";
         break;
