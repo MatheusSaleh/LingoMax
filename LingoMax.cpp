@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string>
+#include <cstring>
 
 using namespace std;
 
@@ -399,7 +399,7 @@ void leituraExaustivaNaTabelaDeIdioma(struct IndiceIdioma indiceIdioma[], struct
         int i = indiceIdioma[k].endereco;
         if(idiomas[i].status == 0){
             cout << "\nCodigo: " << idiomas[i].codigo;
-            cout << "\tDescricao: " << idiomas[i].descricao;
+            cout << "\tDescricao: " << idiomas[i].descricao << "\n";
         }
     }
 }
@@ -410,7 +410,7 @@ void leituraExaustivaNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct
             if(licoes[i].status == 0){
                 cout << "\nCodigo: " << licoes[i].cod_licao;
                 cout << "\tCodigo do Idioma: " << licoes[i].cod_idioma;
-                cout << "\tTotal de Niveis: " << licoes[i].total_niveis;
+                cout << "\tTotal de Niveis: " << licoes[i].total_niveis << "\n";
             }
     }
 }
@@ -465,10 +465,10 @@ int main(){
     int quantidadeDeUsuarios = 5;
 
     //CONTADORES
-    int contIdioma;
-    int contLicoes;
-    int contExercicio;
-    int contUsuario;
+    int contIdioma = 5;
+    int contLicoes = 5;
+    int contExercicio = 5;
+    int contUsuario = 5;
 
     //Tabela Do Indice De Idioma
     indiceIdioma[0].codigo = 1;
@@ -523,25 +523,55 @@ int main(){
     indiceExercicios[4].endereco = 3;
 
     //Tabela de Idiomas
-    vIdioma[0].codigo = 8;
-    vIdioma[0].descricao = 'Alemao';
+    vIdioma[0].codigo = 11;
+    strcpy(vIdioma[0].descricao, "Frances");
     vIdioma[0].status = 0;
 
-    vIdioma[1].codigo = 14;
-    vIdioma[1].descricao = 'Italiano';
+    vIdioma[1].codigo = 2;
+    strcpy(vIdioma[1].descricao, "Russo");
     vIdioma[1].status = 0;
 
-    vIdioma[2].codigo = 2;
-    vIdioma[2].descricao = 'Russo';
+    vIdioma[2].codigo = 14;
+    strcpy(vIdioma[2].descricao, "Italiano");
     vIdioma[2].status = 0;
 
-    vIdioma[3].codigo = 11;
-    vIdioma[3].descricao = 'Frances';
+    vIdioma[3].codigo = 6;
+    strcpy(vIdioma[3].descricao, "Espanhol");
     vIdioma[3].status = 0;
 
-    vIdioma[4].codigo = 6;
-    vIdioma[4].descricao = 'Espanhol';
+    vIdioma[4].codigo = 8;
+    strcpy(vIdioma[4].descricao, "Alemao");
     vIdioma[4].status = 0;
+
+    //Licao de Frances
+    vLicoes[0].cod_licao = 8;
+    vLicoes[0].cod_idioma = 4; //Codigo do Indice Frances
+    vLicoes[0].total_niveis = 3;
+    vLicoes[0].status = 0;
+
+    //Licao de Russo
+    vLicoes[1].cod_licao = 11;
+    vLicoes[1].cod_idioma = 3; //Codigo do Indice Russo
+    vLicoes[1].total_niveis = 4;
+    vLicoes[1].status = 0;
+
+    //Licao de Italiano
+    vLicoes[2].cod_licao = 14;
+    vLicoes[2].cod_idioma = 2; //Codigo do Indice Italiano
+    vLicoes[2].total_niveis = 5;
+    vLicoes[2].status = 0;
+
+    //Licao de Espanhol
+    vLicoes[3].cod_licao = 6;
+    vLicoes[3].cod_idioma = 5;  //Codigo do Indice Espanhol
+    vLicoes[3].total_niveis = 6;
+    vLicoes[3].status = 0;
+
+    //Licao de Alemao
+    vLicoes[4].cod_licao = 2;
+    vLicoes[4].cod_idioma = 1; //Codigo do Indice Alemao
+    vLicoes[4].total_niveis = 7;
+    vLicoes[4].status = 0;
 
     do{
       cout << "Selecione uma opcao: \n";
@@ -601,10 +631,11 @@ int main(){
         cout << "Voce escolheu realizar a leitura da tabela de usuarios \n";
         leituraDeUsuarios(vUsuarios, quantidadeDeUsuarios);
       case 9:
-        cout << "Voce escolheu realizar inclusao na tabela de Idiomas";
+        cout << "Voce escolheu realizar inclusao na tabela de Idiomas \n";
         for(int codIdioma = 5; codIdioma != 0;){
             cout << "\n\nInforme o Codigo do Idioma  a ser inserido (0 Para Encerrar): ";
             cin >> codIdioma;
+            cin.ignore();
             if (codIdioma != 0){
                 buscaAleatoriaNaTabelaDeIdiomas(indiceIdioma, vIdioma, contIdioma, codIdioma);
             }
@@ -631,7 +662,7 @@ int main(){
         }
         break;
       case 12:
-        cout << "Voce escolheu realizar inclusao na tabela de Usuarios";
+        cout << "Voce escolheu realizar inclusao na tabela de Usuarios \n";
         for(int codUsuario = 5; codUsuario != 0;){
             cout << "\n\nInforme o Codigo do Usuario a ser incluido (0 Para Encerrar): ";
             cin >> codUsuario;
@@ -641,7 +672,7 @@ int main(){
         }
         break;
       case 13:
-        cout << "Voce escolheu realizar exclusao na tabela de idiomas";
+        cout << "Voce escolheu realizar exclusao na tabela de idiomas \n";
         for(int codIdioma = 5; codIdioma != 0;){
             cout << "\n\nInforme o codigo do idioma a ser excluido (0 Para Encerrar): ";
             cin >> codIdioma;
@@ -651,7 +682,7 @@ int main(){
         }
         break;
       case 14:
-        cout << "Voce escolheu realizar exclusao na tabela de licoes";
+        cout << "Voce escolheu realizar exclusao na tabela de licoes \n";
         for(int codLicoes = 5; codLicoes != 0;){
             cout << "\n\nInforme o codigo da licao a ser excluida (0 Para Encerrar): ";
             cin >> codLicoes;
@@ -661,7 +692,7 @@ int main(){
         }
         break;
       case 15:
-        cout << "Voce escolheu realizar exclusao na tabela de exercicios";
+        cout << "Voce escolheu realizar exclusao na tabela de exercicios \n";
         for(int codExercicio = 5; codExercicio != 0;){
             cout << "\n\nInforme o codigo do exercicio a ser excluido (0 Para Encerrar): ";
             cin >> codExercicio;
@@ -671,7 +702,7 @@ int main(){
         }
         break;
       case 16:
-        cout << "Voce escolheu realizar exclusao na tabela de usuarios";
+        cout << "Voce escolheu realizar exclusao na tabela de usuarios \n";
         for(int codUsuario = 5; codUsuario != 0;){
             cout << "\n\nInforme o codigo do usuario a ser excluido (0 Para Encerrar): ";
             cin >> codUsuario;
@@ -680,19 +711,19 @@ int main(){
             }
         }
       case 17:
-        cout << "Voce escolheu realizar leitura exaustiva na tabela de Idiomas";
+        cout << "Voce escolheu realizar leitura exaustiva na tabela de Idiomas \n";
         leituraExaustivaNaTabelaDeIdioma(indiceIdioma, vIdioma, contIdioma);
         break;
       case 18:
-        cout << "Voce escolheu realizar leitura exaustiva na tabela de Licoes";
+        cout << "Voce escolheu realizar leitura exaustiva na tabela de Licoes \n";
         leituraExaustivaNaTabelaDeLicoes(indiceLicoes, vLicoes, contLicoes);
         break;
       case 19:
-        cout << "Voce escolheu realizar leitura exaustiva na tabela de Exercicios";
+        cout << "Voce escolheu realizar leitura exaustiva na tabela de Exercicios \n";
         leituraExaustivaNaTabelaDeExercicios(indiceExercicios, vExercicios, contExercicio);
         break;
       case 20:
-        cout << "Voce escolheu realizar leitura exaustiva na tabela de Usuarios";
+        cout << "Voce escolheu realizar leitura exaustiva na tabela de Usuarios \n";
         leituraExaustivaNaTabelaDeUsuarios(indiceUsuarios, vUsuarios, contUsuario);
         break;
       case 0:
