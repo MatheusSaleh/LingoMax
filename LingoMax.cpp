@@ -423,7 +423,7 @@ void leituraExaustivaNaTabelaDeExercicios(struct IndiceExercicios indiceExercici
             cout << "\tNivel de Dificuldade: " << exercicios[i].nivel_dificuldade;
             cout << "\tDescricao: " << exercicios[i].descricao;
             cout << "\tResposta Correta: " << exercicios[i].resposta_correta;
-            cout << "\tPontuacao: " << exercicios[i].pontuacao;
+            cout << "\tPontuacao: " << exercicios[i].pontuacao << "\n";
         }
     }
 }
@@ -436,7 +436,7 @@ void leituraExaustivaNaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], 
             cout << "\tNome: " << usuarios[i].nome;
             cout << "\tCodigo do Idioma: " << usuarios[i].codigo_idioma;
             cout << "\tNivel Atual: " << usuarios[i].nivel_atual;
-            cout << "\tPontuacao Total: " << usuarios[i].pontuacao_total;
+            cout << "\tPontuacao Total: " << usuarios[i].pontuacao_total << "\n";
         }
     }
 }
@@ -516,11 +516,11 @@ int main(){
     indiceUsuarios[3].codigo = 4;
     indiceUsuarios[4].codigo = 5;
 
-    indiceExercicios[0].endereco = 4;
-    indiceExercicios[1].endereco = 2;
-    indiceExercicios[2].endereco = 1;
-    indiceExercicios[3].endereco = 0;
-    indiceExercicios[4].endereco = 3;
+    indiceUsuarios[0].endereco = 4;
+    indiceUsuarios[1].endereco = 2;
+    indiceUsuarios[2].endereco = 1;
+    indiceUsuarios[3].endereco = 0;
+    indiceUsuarios[4].endereco = 3;
 
     //Tabela de Idiomas
     vIdioma[0].codigo = 11;
@@ -543,6 +543,7 @@ int main(){
     strcpy(vIdioma[4].descricao, "Alemao");
     vIdioma[4].status = 0;
 
+    //Tabela de Licoes
     //Licao de Frances
     vLicoes[0].cod_licao = 8;
     vLicoes[0].cod_idioma = 4; //Codigo do Indice Frances
@@ -572,6 +573,78 @@ int main(){
     vLicoes[4].cod_idioma = 1; //Codigo do Indice Alemao
     vLicoes[4].total_niveis = 7;
     vLicoes[4].status = 0;
+
+    //Tabela De Exercicios
+    vExercicios[0].cod_exercicio = 8;
+    vExercicios[0].nivel_dificuldade = 2;
+    strcpy(vExercicios[0].descricao, "Exercicio 1");
+    strcpy(vExercicios[0].resposta_correta, "A");
+    vExercicios[0].pontuacao = 3;
+    vExercicios[0].status = 0;
+
+    vExercicios[1].cod_exercicio = 12;
+    vExercicios[1].nivel_dificuldade = 3;
+    strcpy(vExercicios[1].descricao, "Exercicio 2");
+    strcpy(vExercicios[1].resposta_correta, "A");
+    vExercicios[1].pontuacao = 3;
+    vExercicios[1].status = 0;
+
+    vExercicios[2].cod_exercicio = 5;
+    vExercicios[2].nivel_dificuldade = 4;
+    strcpy(vExercicios[2].descricao, "Exercicio 3");
+    strcpy(vExercicios[2].resposta_correta, "B");
+    vExercicios[2].pontuacao = 4;
+    vExercicios[2].status = 0;
+
+    vExercicios[3].cod_exercicio = 6;
+    vExercicios[3].nivel_dificuldade = 5;
+    strcpy(vExercicios[3].descricao, "Exercicio 4");
+    strcpy(vExercicios[3].resposta_correta, "D");
+    vExercicios[3].pontuacao = 2;
+    vExercicios[3].status = 0;
+
+    vExercicios[4].cod_exercicio = 1;
+    vExercicios[4].nivel_dificuldade = 6;
+    strcpy(vExercicios[4].descricao, "Exercicio 5");
+    strcpy(vExercicios[4].resposta_correta, "C");
+    vExercicios[4].pontuacao = 1;
+    vExercicios[4].status = 0;
+
+    //Tabela de Usuarios
+    vUsuarios[0].codigo = 8;
+    strcpy(vUsuarios[0].nome, "Luiz Carlos Begosso");
+    vUsuarios[0].codigo_idioma = 2;
+    vUsuarios[0].nivel_atual = 12;
+    vUsuarios[0].pontuacao_total = 32;
+    vUsuarios[0].status = 0;
+
+    vUsuarios[1].codigo = 12;
+    strcpy(vUsuarios[1].nome, "Luiz Ricardo Begosso");
+    vUsuarios[1].codigo_idioma = 1;
+    vUsuarios[1].nivel_atual = 8;
+    vUsuarios[1].pontuacao_total = 21;
+    vUsuarios[1].status = 0;
+
+    vUsuarios[2].codigo = 5;
+    strcpy(vUsuarios[2].nome, "Almir Rogerio Camolesi");
+    vUsuarios[2].codigo_idioma = 3;
+    vUsuarios[2].nivel_atual = 7;
+    vUsuarios[2].pontuacao_total = 14;
+    vUsuarios[2].status = 0;
+
+    vUsuarios[3].codigo = 6;
+    strcpy(vUsuarios[3].nome, "Alex Polleto");
+    vUsuarios[3].codigo_idioma = 5;
+    vUsuarios[3].nivel_atual = 5;
+    vUsuarios[3].pontuacao_total = 9;
+    vUsuarios[3].status = 0;
+
+    vUsuarios[4].codigo = 1;
+    strcpy(vUsuarios[4].nome, "Douglas Sanches da Cunha");
+    vUsuarios[4].codigo_idioma = 4;
+    vUsuarios[4].nivel_atual = 2;
+    vUsuarios[4].pontuacao_total = 7;
+    vUsuarios[4].status = 0;
 
     do{
       cout << "Selecione uma opcao: \n";
@@ -666,6 +739,7 @@ int main(){
         for(int codUsuario = 5; codUsuario != 0;){
             cout << "\n\nInforme o Codigo do Usuario a ser incluido (0 Para Encerrar): ";
             cin >> codUsuario;
+            cin.ignore();
             if(codUsuario != 0){
                 buscaAleatoriaNaTabelaDeUsuarios(indiceUsuarios, vUsuarios, contUsuario, codUsuario);
             }
