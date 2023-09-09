@@ -54,106 +54,6 @@ struct IndiceUsuarios{
     int endereco;
 };
 
-void leituraDoIndiceDeIdiomas(struct IndiceIdioma indiceIdioma[], int contIdioma){
-    for(int i = 0; i < contIdioma; i++){
-        cout << "\n\nCodigo do Indice do Idioma: " << (i + 1) << ": ";
-        cin >> indiceIdioma[i].codigo;
-        cout << "Endereco Fisico na Area de Dados de Idioma: ";
-        cin >> indiceIdioma[i].endereco;
-    }
-}
-
-void leituraDoIndiceDeLicoes(struct IndiceLicoes indiceLicoes[], int contLicoes){
-    for(int i = 0; i < contLicoes; i++){
-        cout << "\n\nCodigo do Indice da Licao: " << (i + 1) << ": ";
-        cin >> indiceLicoes[i].codigo;
-        cout << "Endereco Fisico na Area de Dados de Licao: ";
-        cin >> indiceLicoes[i].endereco;
-    }
-}
-
-void leituraDoIndiceDeExercicios(struct IndiceExercicios indiceExercicios[], int contExercicios){
-    for(int i = 0; i < contExercicios; i++){
-        cout << "\n\nCodigo do Indice do Exercicio: " << (i + 1) << ": ";
-        cin >> indiceExercicios[i].codigo;
-        cout << "Endereco Fisico na Area de Dados de Exercicio";
-        cin >> indiceExercicios[i].endereco;
-    }
-}
-
-void leituraDoIndiceDeUsuarios(struct IndiceUsuarios indiceUsuarios[], int contUsuarios){
-    for(int i = 0; i < contUsuarios; i++){
-        cout << "\n\nCodigo do Indice do Usuario: " << (i + 1) << ": ";
-        cin >> indiceUsuarios[i].codigo;
-        cout << "Endereco Fisico na Area de Dados de Usuario: ";
-        cin >> indiceUsuarios[i].endereco;
-    }
-}
-
-void leituraDeIdiomas(struct Idiomas idiomas[], int &cont){
-    int i = 0;
-    for (int saida = 1; i < 5 && saida != 0; i++){
-        cout << "\n\nCodigo do Idioma " << (i+1) << ": ";
-        cin >> idiomas[i].codigo;
-        cin.ignore();
-        cout << "\nDigite a descricao do idioma: ";
-        gets(idiomas[i].descricao);
-        cout << "\nDigite o status (O - Para Registro Ativo / 1 - Para Registro Excluido)";
-        cin >> idiomas[i].status;
-    }
-}
-
-void leituraDeLicoes(struct Licoes licoes[], int &cont){
-    int i = 0;
-    for (int saida = 1; i < 5 && saida != 0; i++){
-        cout << "\n\nCodigo da Licao " << (i + 1) << ": ";
-        cin >> licoes[i].cod_licao;
-        cout << "Digite o codigo do idioma: ";
-        cin >> licoes[i].cod_idioma;
-        cout << "Digite o total de niveis: ";
-        cin >> licoes[i].total_niveis;
-        cout << "Digite o status (0 - para Registro Ativo / 1 - para Registro Excluido)";
-        cin >> licoes[i].status;
-    }
-}
-
-void leituraDeExercicios(struct Exercicios exercicios[], int &cont){
-    int i = 0;
-    for(int saida = 1; i < 5 && saida != 0; i++){
-        cout << "\n\nCodigo do Exercicio " << (i + 1) << ": ";
-        cin >> exercicios[i].cod_exercicio;
-        cout << "Nivel de Dificuldade: ";
-        cin >> exercicios[i].nivel_dificuldade;
-        cin.ignore();
-        cout << "Descricao: ";
-        gets(exercicios[i].descricao);
-        cout << "Resposta Correta: ";
-        gets(exercicios[i].resposta_correta);
-        cout << "Pontuacao: ";
-        cin >> exercicios[i].pontuacao;
-        cout << "Digite o status (0 - para Registro Ativo / 1 - para Registro Excluido)";
-        cin >> exercicios[i].status;
-    }
-}
-
-void leituraDeUsuarios(struct Usuarios usuarios[], int &cont){
-    int i = 0;
-    for(int saida = 1; i < 5 && saida != 0; i++){
-        cout << "\n\nCodigo do Usuario " << (i + 1) << ": ";
-        cin >> usuarios[i].codigo;
-        cout << "Nome: ";
-        gets(usuarios[i].nome);
-        cout << "Codigo do Idioma: ";
-        cin >> usuarios[i].codigo_idioma;
-        cout << "Nivel Atual: ";
-        cin >> usuarios[i].nivel_atual;
-        cout << "Pontuacao Total:";
-        cin >> usuarios[i].pontuacao_total;
-        cout << "Digite o status (0 - para Registro Ativo / 1 - para Registro Excluido)";
-        cin >> usuarios[i].status;
-    }
-}
-
 void inclusaoNaTabelaDeIdiomas(struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int &cont, int cod){
     cont++;
     idiomas[cont].codigo = cod;
@@ -454,15 +354,7 @@ int main(){
     Exercicios vExercicios[5];
     Usuarios vUsuarios[5];
 
-
-
     int opcao;
-
-    //QUANTIDADES
-    int quantidadeDeIdiomas = 5;
-    int quantidadeDeLicoes = 5;
-    int quantidadeDeExercicios = 5;
-    int quantidadeDeUsuarios = 5;
 
     //CONTADORES
     int contIdioma = 5;
@@ -648,62 +540,23 @@ int main(){
 
     do{
       cout << "Selecione uma opcao: \n";
-      cout << "1 - Realizar Leitura do Indice do Idioma \n";
-      cout << "2 - Realizar Leitura do Indice de Licoes \n";
-      cout << "3 - Realizar Leitura do Indice de Exercicio \n";
-      cout << "4 - Realizar Leitura do Indice de Usuario \n";
-      cout << "5 - Realizar Leitura da Tabela do Idioma \n";
-      cout << "6 - Realizar Leitura da Tabela de Licoes \n";
-      cout << "7 - Realizar Leitura da Tabela de Exercicios \n";
-      cout << "8 - Realizar Leitura da Tabela de Usuarios \n";
-      cout << "9 - Realizar Inclusao na Tabela de Idioma \n";
-      cout << "10 - Realizar Inclusao na Tabela de Licoes \n";
-      cout << "11 - Realizar Inclusao na Tabela de Exercicio \n";
-      cout << "12 - Realizar Inclusao na Tabela de Usuarios \n";
-      cout << "13 - Realizar Exclusao na Tabela de Idioma \n";
-      cout << "14 - Realizar Exclusao na Tabela de Licoes \n";
-      cout << "15 - Realizar Exclusao na Tabela de Exercicios \n";
-      cout << "16 - Realizar Exclusao na Tabela de Usuarios \n";
-      cout << "17 - Realizar Leitura Exaustiva na Tabela de Idioma \n";
-      cout << "18 - Realizar Leitura Exaustiva na Tabela de Licoes \n";
-      cout << "19 - Realizar Leitura Exaustiva na Tabela de Exercicios \n";
-      cout << "20 - Realizar Leitura Exaustiva na Tabela de Usuarios \n";
+      cout << "1 - Realizar Inclusao na Tabela de Idioma \n";
+      cout << "2 - Realizar Inclusao na Tabela de Licoes \n";
+      cout << "3 - Realizar Inclusao na Tabela de Exercicio \n";
+      cout << "4 - Realizar Inclusao na Tabela de Usuarios \n";
+      cout << "5 - Realizar Exclusao na Tabela de Idioma \n";
+      cout << "6 - Realizar Exclusao na Tabela de Licoes \n";
+      cout << "7 - Realizar Exclusao na Tabela de Exercicios \n";
+      cout << "8 - Realizar Exclusao na Tabela de Usuarios \n";
+      cout << "9 - Realizar Leitura Exaustiva na Tabela de Idioma \n";
+      cout << "10 - Realizar Leitura Exaustiva na Tabela de Licoes \n";
+      cout << "11 - Realizar Leitura Exaustiva na Tabela de Exercicios \n";
+      cout << "12 - Realizar Leitura Exaustiva na Tabela de Usuarios \n";
       cout << "0 - Para Encerrar\n";
       cin >> opcao;
       switch(opcao)
       {
       case 1:
-        cout << "Voce escolheu realizar a leitura do Indice do Idioma \n";
-        leituraDoIndiceDeIdiomas(indiceIdioma, 5);
-        break;
-      case 2:
-        cout << "Voce escolheu realizar a leitura do Indice de Licoes \n";
-        leituraDoIndiceDeLicoes(indiceLicoes, 5);
-        break;
-      case 3:
-        cout << "Voce escolheu realizar a leitura do Indice de Exercicios \n";
-        leituraDoIndiceDeExercicios(indiceExercicios, 5);
-        break;
-      case 4:
-        cout << "Voce escolheu realizar a leitura do Indice de Usuarios \n";
-        leituraDoIndiceDeUsuarios(indiceUsuarios, 5);
-        break;
-      case 5:
-        cout << "Voce escolheu realizar a leitura da tabela de Idiomas \n";
-        leituraDeIdiomas(vIdioma, quantidadeDeIdiomas);
-        break;
-      case 6:
-        cout << "Voce escolheu realizar a leitura da tabela de licoes \n";
-        leituraDeLicoes(vLicoes, quantidadeDeLicoes);
-        break;
-      case 7:
-        cout << "Voce escolheu realizar a leitura da tabela de exercicios \n";
-        leituraDeExercicios(vExercicios, quantidadeDeExercicios);
-        break;
-      case 8:
-        cout << "Voce escolheu realizar a leitura da tabela de usuarios \n";
-        leituraDeUsuarios(vUsuarios, quantidadeDeUsuarios);
-      case 9:
         cout << "Voce escolheu realizar inclusao na tabela de Idiomas \n";
         for(int codIdioma = 5; codIdioma != 0;){
             cout << "\n\nInforme o Codigo do Idioma  a ser inserido (0 Para Encerrar): ";
@@ -714,7 +567,7 @@ int main(){
             }
         }
         break;
-      case 10:
+      case 2:
         cout << "Voce escolheu realizar inclusao na tabela de Licoes \n";
         for(int codLicao = 5; codLicao != 0;){
             cout << "\n\nInforme o Codigo da Licao a ser inserida (0 Para Encerrar): ";
@@ -724,7 +577,7 @@ int main(){
             }
         }
         break;
-      case 11:
+      case 3:
         cout << "Voce escolheu realizar inclusao na tabela de Exercicio \n";
         for(int codExercicio = 5; codExercicio != 0;){
             cout << "\n\nInforme o Codigo do Exercicio a ser incluido (0 Para Encerrar): ";
@@ -734,7 +587,7 @@ int main(){
             }
         }
         break;
-      case 12:
+      case 4:
         cout << "Voce escolheu realizar inclusao na tabela de Usuarios \n";
         for(int codUsuario = 5; codUsuario != 0;){
             cout << "\n\nInforme o Codigo do Usuario a ser incluido (0 Para Encerrar): ";
@@ -745,7 +598,7 @@ int main(){
             }
         }
         break;
-      case 13:
+      case 5:
         cout << "Voce escolheu realizar exclusao na tabela de idiomas \n";
         for(int codIdioma = 5; codIdioma != 0;){
             cout << "\n\nInforme o codigo do idioma a ser excluido (0 Para Encerrar): ";
@@ -755,7 +608,7 @@ int main(){
             }
         }
         break;
-      case 14:
+      case 6:
         cout << "Voce escolheu realizar exclusao na tabela de licoes \n";
         for(int codLicoes = 5; codLicoes != 0;){
             cout << "\n\nInforme o codigo da licao a ser excluida (0 Para Encerrar): ";
@@ -765,7 +618,7 @@ int main(){
             }
         }
         break;
-      case 15:
+      case 7:
         cout << "Voce escolheu realizar exclusao na tabela de exercicios \n";
         for(int codExercicio = 5; codExercicio != 0;){
             cout << "\n\nInforme o codigo do exercicio a ser excluido (0 Para Encerrar): ";
@@ -775,7 +628,7 @@ int main(){
             }
         }
         break;
-      case 16:
+      case 8:
         cout << "Voce escolheu realizar exclusao na tabela de usuarios \n";
         for(int codUsuario = 5; codUsuario != 0;){
             cout << "\n\nInforme o codigo do usuario a ser excluido (0 Para Encerrar): ";
@@ -784,19 +637,19 @@ int main(){
                 exclusaoNaTabelaDeUsuarios(indiceUsuarios, vUsuarios, contUsuario, codUsuario);
             }
         }
-      case 17:
+      case 9:
         cout << "Voce escolheu realizar leitura exaustiva na tabela de Idiomas \n";
         leituraExaustivaNaTabelaDeIdioma(indiceIdioma, vIdioma, contIdioma);
         break;
-      case 18:
+      case 10:
         cout << "Voce escolheu realizar leitura exaustiva na tabela de Licoes \n";
         leituraExaustivaNaTabelaDeLicoes(indiceLicoes, vLicoes, contLicoes);
         break;
-      case 19:
+      case 11:
         cout << "Voce escolheu realizar leitura exaustiva na tabela de Exercicios \n";
         leituraExaustivaNaTabelaDeExercicios(indiceExercicios, vExercicios, contExercicio);
         break;
-      case 20:
+      case 12:
         cout << "Voce escolheu realizar leitura exaustiva na tabela de Usuarios \n";
         leituraExaustivaNaTabelaDeUsuarios(indiceUsuarios, vUsuarios, contUsuario);
         break;
