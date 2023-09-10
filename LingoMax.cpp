@@ -341,6 +341,83 @@ void leituraExaustivaNaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], 
     }
 }
 
+void reorganizacaoDaTabelaDeIdioma(struct IndiceIdioma indiceIdioma[], struct IndiceIdioma novoIndiceIdioma[], struct Idiomas idiomas[], struct Idiomas novoIdioma[], int &cont){
+    int j = -1;
+    for (int k = 0; k < cont; k++){
+        int i = indiceIdioma[k].endereco;
+        if(idiomas[i].status == 0){
+            j++;
+            novoIdioma[j].codigo = idiomas[i].codigo;
+            strcpy(novoIdioma[j].descricao, idiomas[i].descricao);
+            novoIdioma[j].status = 0;
+            novoIndiceIdioma[j].codigo = novoIdioma[j].codigo;
+            novoIndiceIdioma[j].endereco = j;
+        }
+    }
+    cont = j + 1;
+    cout << "\n\nTabela reorganizada com sucesso!\n\n";
+}
+
+void reorganizacaoDaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct IndiceLicoes novoIndiceLicoes[], struct Licoes licoes[], struct Licoes novoLicoes[], int &cont){
+    int j = -1;
+    for(int k = 0; k < cont; k++){
+        int i = indiceLicoes[k].endereco;
+        if(licoes[i].status == 0){
+            j++;
+            novoLicoes[j].cod_licao = licoes[i].cod_licao;
+            novoLicoes[j].cod_idioma = licoes[i].cod_idioma;
+            novoLicoes[j].total_niveis = licoes[i].total_niveis;
+            novoLicoes[j].status = 0;
+            novoIndiceLicoes[j].codigo = novoLicoes[j].cod_licao;
+            novoIndiceLicoes[j].endereco = j;
+        }
+    }
+    cont = j + 1;
+    cout << "\n\nTabela reorganizada com sucesso!\n\n";
+}
+
+void reorganizacaoDaTabelaDeExercicios(struct IndiceExercicios indiceExercicios[], struct IndiceExercicios novoIndiceExercicios[], struct Exercicios exercicios[], struct Exercicios novoExercicios[], int &cont){
+    int j = -1;
+    for(int k = 0; k < cont; k++){
+        int i = indiceExercicios[k].endereco;
+        if(exercicios[i].status == 0){
+            j++;
+            novoExercicios[j].cod_exercicio = exercicios[i].cod_exercicio;
+            novoExercicios[j].nivel_dificuldade = exercicios[i].nivel_dificuldade;
+            strcpy(novoExercicios[j].descricao, exercicios[i].descricao);
+            strcpy(novoExercicios[j].resposta_correta, exercicios[i].resposta_correta);
+            novoExercicios[j].pontuacao = exercicios[i].pontuacao;
+            novoExercicios[j].status = 0;
+            novoIndiceExercicios[j].codigo = novoExercicios[j].cod_exercicio;
+            novoIndiceExercicios[j].endereco = j;
+        }
+    }
+    cont = j + 1;
+    cout << "\n\nTabela reorganizada com sucesso!\n\n";
+}
+
+void reorganizacaoDaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], struct IndiceUsuarios novoIndiceUsuarios[], struct Usuarios usuarios[], struct Usuarios novoUsuarios[], int &cont){
+    int j = -1;
+    for(int k = 0; k < cont; k++){
+        int i = indiceUsuarios[k].endereco;
+        if(usuarios[i].status == 0){
+            j++;
+            novoUsuarios[j].codigo = usuarios[i].codigo;
+            strcpy(novoUsuarios[j].nome, usuarios[i].nome);
+            novoUsuarios[j].codigo_idioma = usuarios[i].codigo_idioma;
+            novoUsuarios[j].nivel_atual = usuarios[i].nivel_atual;
+            novoUsuarios[j].pontuacao_total = usuarios[i].pontuacao_total;
+            novoUsuarios[j].status = 0;
+            novoIndiceUsuarios[j].codigo = novoUsuarios[j].codigo;
+            novoIndiceUsuarios[j].endereco = j;
+        }
+    }
+    cont = j + 1;
+    cout << "\n\nTabela reorganizada com sucesso!\n\n";
+}
+
+
+
 int main(){
     //INDICES
     IndiceIdioma indiceIdioma[5];
@@ -353,6 +430,18 @@ int main(){
     Licoes vLicoes[5];
     Exercicios vExercicios[5];
     Usuarios vUsuarios[5];
+
+    //NOVAS TABELAS
+    Idiomas novoVetIdioma[5];
+    Licoes novoVetLicoes[5];
+    Exercicios novoVetExercicios[5];
+    Usuarios novoVetUsuarios[5];
+
+    //NOVOS INDICES
+    IndiceIdioma novoIndiceIdioma[5];
+    IndiceLicoes novoIndiceLicoes[5];
+    IndiceExercicios novoIndiceExercicios[5];
+    IndiceUsuarios novoIndiceUsuarios[5];
 
     int opcao;
 
@@ -552,6 +641,10 @@ int main(){
       cout << "10 - Realizar Leitura Exaustiva na Tabela de Licoes \n";
       cout << "11 - Realizar Leitura Exaustiva na Tabela de Exercicios \n";
       cout << "12 - Realizar Leitura Exaustiva na Tabela de Usuarios \n";
+      cout << "13 - Realizar Reorganizacao na Tabela de Idioma \n";
+      cout << "14 - Realizar Reorganizacao na Tabela de Licoes \n";
+      cout << "15 - Realizar Reorganizacao na Tabela de Exercicios \n";
+      cout << "16 - Realizar Reorganizacao na Tabela de Usuarios \n";
       cout << "0 - Para Encerrar\n";
       cin >> opcao;
       switch(opcao)
@@ -652,6 +745,22 @@ int main(){
       case 12:
         cout << "Voce escolheu realizar leitura exaustiva na tabela de Usuarios \n";
         leituraExaustivaNaTabelaDeUsuarios(indiceUsuarios, vUsuarios, contUsuario);
+        break;
+      case 13:
+        cout << "Voce escolheu realizar reorganizacao na tabela de idiomas \n";
+        reorganizacaoDaTabelaDeIdioma(indiceIdioma, novoIndiceIdioma, vIdioma, novoVetIdioma, contIdioma);
+        break;
+      case 14:
+        cout << "Voce escolheu realizar reorganizacao na tabela de licoes \n";
+        reorganizacaoDaTabelaDeLicoes(indiceLicoes, novoIndiceLicoes, vLicoes, novoVetLicoes, contLicoes);
+        break;
+      case 15:
+        cout << "Voce escolheu realizar reorganizacao na tabela de exercicios \n";
+        reorganizacaoDaTabelaDeExercicios(indiceExercicios, novoIndiceExercicios, vExercicios, novoVetExercicios, contExercicio);
+        break;
+      case 16:
+        cout << "Voce escolheu realizar reorganizacao na tabela de usuarios \n";
+        reorganizacaoDaTabelaDeUsuarios(indiceUsuarios, novoIndiceUsuarios, vUsuarios, novoVetUsuarios, contUsuario);
         break;
       case 0:
         cout << "Encerrando o programa... \n";
