@@ -90,11 +90,29 @@ void buscaAleatoriaNaTabelaDeIdiomas(struct IndiceIdioma indiceIdioma[], struct 
         inclusaoNaTabelaDeIdiomas(indiceIdioma, idiomas, cont, cod);
 }
 
-void inclusaoNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct Licoes licoes[], int &cont, int cod){
+void mostraDescricaoDoIdioma(struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int cont, int cod){
+    int i = 0, f = cont - 1;
+    int m = (i + f) / 2;
+    for(; f >= i && cod != indiceIdioma[m].codigo; m = (i + f) / 2){
+        if(cod > indiceIdioma[m].codigo)
+            i = m + 1;
+        else
+            f = m - 1;
+    }
+    if(cod == indiceIdioma[m].codigo){
+        i = indiceIdioma[m].endereco;
+        cout << "\nDescricao do Idioma: " << idiomas[i].descricao << "\n";
+    }
+    else
+        cout << "\n\n Idioma nao encontrado";
+}
+
+void inclusaoNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct Licoes licoes[], int &cont, int cod, struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int contIdioma){
     cont++;
     licoes[cont].cod_licao = cod;
     cout << "Digite o codigo do idioma: ";
     cin >> licoes[cont].cod_idioma;
+    mostraDescricaoDoIdioma(indiceIdioma, idiomas, contIdioma, licoes[cont].cod_idioma);
     cout << "Digite o total de niveis: ";
     cin >> licoes[cont].total_niveis;
     cout << "Digite o status (0 - para Registro Ativo / 1 - para Registro Excluido)";
@@ -109,7 +127,7 @@ void inclusaoNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct Licoes 
     cout << "\n\nInclusao Realizada com Sucesso!";
 }
 
-void buscaAleatoriaNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct Licoes licoes[], int &cont, int cod){
+void buscaAleatoriaNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct Licoes licoes[], int &cont, int cod, struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int contIdioma){
     int i = 0, f = cont;
     int m = (i + f) / 2;
     for(; f >= i && cod != indiceLicoes[m].codigo; m = (i + f) / 2){
@@ -126,7 +144,7 @@ void buscaAleatoriaNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct L
         cout << "\tTotal de Niveis: " << licoes[i].total_niveis;
     }
     else
-        inclusaoNaTabelaDeLicoes(indiceLicoes, licoes, cont, cod);
+        inclusaoNaTabelaDeLicoes(indiceLicoes, licoes, cont, cod, indiceIdioma, idiomas, contIdioma);
 }
 
 void inclusaoNaTabelaDeExercicios(struct IndiceExercicios indiceExercicios[], struct Exercicios exercicios[], int &cont, int cod){
@@ -416,8 +434,6 @@ void reorganizacaoDaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], str
     cout << "\n\nTabela reorganizada com sucesso!\n\n";
 }
 
-
-
 int main(){
     //INDICES
     IndiceIdioma indiceIdioma[5];
@@ -666,7 +682,7 @@ int main(){
             cout << "\n\nInforme o Codigo da Licao a ser inserida (0 Para Encerrar): ";
             cin >> codLicao;
             if(codLicao != 0){
-                buscaAleatoriaNaTabelaDeLicoes(indiceLicoes, vLicoes, contLicoes, codLicao);
+                buscaAleatoriaNaTabelaDeLicoes(indiceLicoes, vLicoes, contLicoes, codLicao, indiceIdioma, vIdioma, contIdioma);
             }
         }
         break;
