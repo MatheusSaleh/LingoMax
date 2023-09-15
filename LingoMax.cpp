@@ -3,58 +3,67 @@
 
 using namespace std;
 
-struct Idiomas{
+struct Idiomas
+{
     int codigo;
     char descricao[30];
     int status;
 };
 
-struct IndiceIdioma{
+struct IndiceIdioma
+{
     int codigo;
     int endereco;
 };
 
-struct Licoes{
+struct Licoes
+{
     int cod_licao;
     int cod_idioma;
     int total_niveis;
     int status;
 };
 
-struct IndiceLicoes{
+struct IndiceLicoes
+{
     int codigo;
     int endereco;
 };
 
-struct Exercicios{
+struct Exercicios
+{
     int cod_exercicio;
     int nivel_dificuldade;
     char descricao[30];
     char resposta_correta[30];
-    int pontuacao;
+    double pontuacao;
     int status;
 };
 
-struct IndiceExercicios{
+struct IndiceExercicios
+{
     int codigo;
     int endereco;
 };
 
-struct Usuarios{
+struct Usuarios
+{
     int codigo;
     char nome[30];
     int codigo_idioma;
     int nivel_atual;
-    int pontuacao_total;
+    double pontuacao_total;
     int status;
 };
 
-struct IndiceUsuarios{
+struct IndiceUsuarios
+{
     int codigo;
     int endereco;
 };
 
-void inclusaoNaTabelaDeIdiomas(struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int &cont, int cod){
+void inclusaoNaTabelaDeIdiomas(struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int &cont, int cod)
+{
     cont++;
     idiomas[cont].codigo = cod;
     cout << "Descricao: ";
@@ -62,7 +71,8 @@ void inclusaoNaTabelaDeIdiomas(struct IndiceIdioma indiceIdioma[], struct Idioma
     cout << "Status: (0 - Para Registro Ativo / 1 - Para Registro Excluido)";
     cin >> idiomas[cont].status;
     int i;
-    for (i = cont - 1; indiceIdioma[i].codigo > cod; i--){
+    for (i = cont - 1; indiceIdioma[i].codigo > cod; i--)
+    {
         indiceIdioma[i + 1].codigo = indiceIdioma[i].codigo;
         indiceIdioma[i + 1].endereco = indiceIdioma[i].endereco;
     }
@@ -71,16 +81,19 @@ void inclusaoNaTabelaDeIdiomas(struct IndiceIdioma indiceIdioma[], struct Idioma
     cout << "\n\nInclusao Realizada Com Sucesso";
 }
 
-void buscaAleatoriaNaTabelaDeIdiomas(struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int &cont, int cod){
+void buscaAleatoriaNaTabelaDeIdiomas(struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int &cont, int cod)
+{
     int i = 0, f = cont;
     int m = (i + f) / 2;
-    for(; f >= i && cod != indiceIdioma[m].codigo; m = (i+f) / 2){
+    for(; f >= i && cod != indiceIdioma[m].codigo; m = (i+f) / 2)
+    {
         if(cod > indiceIdioma[m].codigo)
             i = m + 1;
         else
             f = m - 1;
     }
-    if(cod == indiceIdioma[m].codigo){
+    if(cod == indiceIdioma[m].codigo)
+    {
         cout << "\n\n Idioma ja cadastrado - nao pode ser cadastrado novamente";
         i = indiceIdioma[m].endereco;
         cout << "\nCodigo do Idioma: " << idiomas[i].codigo;
@@ -90,16 +103,19 @@ void buscaAleatoriaNaTabelaDeIdiomas(struct IndiceIdioma indiceIdioma[], struct 
         inclusaoNaTabelaDeIdiomas(indiceIdioma, idiomas, cont, cod);
 }
 
-void mostraDescricaoDoIdioma(struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int cont, int cod){
+void mostraDescricaoDoIdioma(struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int cont, int cod)
+{
     int i = 0, f = cont - 1;
     int m = (i + f) / 2;
-    for(; f >= i && cod != indiceIdioma[m].codigo; m = (i + f) / 2){
+    for(; f >= i && cod != indiceIdioma[m].codigo; m = (i + f) / 2)
+    {
         if(cod > indiceIdioma[m].codigo)
             i = m + 1;
         else
             f = m - 1;
     }
-    if(cod == indiceIdioma[m].codigo){
+    if(cod == indiceIdioma[m].codigo)
+    {
         i = indiceIdioma[m].endereco;
         cout << "\nDescricao do Idioma: " << idiomas[i].descricao << "\n";
     }
@@ -107,7 +123,8 @@ void mostraDescricaoDoIdioma(struct IndiceIdioma indiceIdioma[], struct Idiomas 
         cout << "\n\n Idioma nao encontrado";
 }
 
-void inclusaoNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct Licoes licoes[], int &cont, int cod, struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int contIdioma){
+void inclusaoNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct Licoes licoes[], int &cont, int cod, struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int contIdioma)
+{
     cont++;
     licoes[cont].cod_licao = cod;
     cout << "Digite o codigo do idioma: ";
@@ -115,10 +132,11 @@ void inclusaoNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct Licoes 
     mostraDescricaoDoIdioma(indiceIdioma, idiomas, contIdioma, licoes[cont].cod_idioma);
     cout << "Digite o total de niveis: ";
     cin >> licoes[cont].total_niveis;
-    cout << "Digite o status (0 - para Registro Ativo / 1 - para Registro Excluido)";
+    cout << "Digite o status (0 - para Registro Ativo / 1 - para Registro Excluido): ";
     cin >> licoes[cont].status;
     int i;
-    for(i = cont - 1; indiceLicoes[i].codigo > cod; i--){
+    for(i = cont - 1; indiceLicoes[i].codigo > cod; i--)
+    {
         indiceLicoes[i + 1].codigo = indiceLicoes[i].codigo;
         indiceLicoes[i + 1].endereco = indiceLicoes[i].endereco;
     }
@@ -127,16 +145,19 @@ void inclusaoNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct Licoes 
     cout << "\n\nInclusao Realizada com Sucesso!";
 }
 
-void buscaAleatoriaNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct Licoes licoes[], int &cont, int cod, struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int contIdioma){
+void buscaAleatoriaNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct Licoes licoes[], int &cont, int cod, struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int contIdioma)
+{
     int i = 0, f = cont;
     int m = (i + f) / 2;
-    for(; f >= i && cod != indiceLicoes[m].codigo; m = (i + f) / 2){
+    for(; f >= i && cod != indiceLicoes[m].codigo; m = (i + f) / 2)
+    {
         if(cod > indiceLicoes[m].codigo)
             i = m + 1;
         else
             f = m - 1;
     }
-    if(cod == indiceLicoes[m].codigo){
+    if(cod == indiceLicoes[m].codigo)
+    {
         cout << "\n\n Licao ja cadastrada - nao pode ser cadastrado novamente";
         i = indiceLicoes[m].endereco;
         cout << "\nCodigo da Licao: " << licoes[i].cod_licao;
@@ -147,7 +168,8 @@ void buscaAleatoriaNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct L
         inclusaoNaTabelaDeLicoes(indiceLicoes, licoes, cont, cod, indiceIdioma, idiomas, contIdioma);
 }
 
-void inclusaoNaTabelaDeExercicios(struct IndiceExercicios indiceExercicios[], struct Exercicios exercicios[], int &cont, int cod){
+void inclusaoNaTabelaDeExercicios(struct IndiceExercicios indiceExercicios[], struct Exercicios exercicios[], int &cont, int cod)
+{
     cont++;
     exercicios[cont].cod_exercicio = cod;
     cout << "Nivel de Dificuldade: ";
@@ -162,7 +184,8 @@ void inclusaoNaTabelaDeExercicios(struct IndiceExercicios indiceExercicios[], st
     cout << "Digite o status (0 - para Registro Ativo / 1 - para Registro Excluido)";
     cin >> exercicios[cont].status;
     int i;
-    for(i = cont - 1; indiceExercicios[i].codigo > cod; i--){
+    for(i = cont - 1; indiceExercicios[i].codigo > cod; i--)
+    {
         indiceExercicios[i + 1].codigo = indiceExercicios[i].codigo;
         indiceExercicios[i + 1].endereco = indiceExercicios[i].endereco;
     }
@@ -171,16 +194,19 @@ void inclusaoNaTabelaDeExercicios(struct IndiceExercicios indiceExercicios[], st
     cout << "\n\nInclusao Realizada Com Sucesso!";
 }
 
-void buscaAleatoriaNaTabelaDeExercicios(struct IndiceExercicios indiceExercicios[], struct Exercicios exercicios[], int &cont, int cod){
+void buscaAleatoriaNaTabelaDeExercicios(struct IndiceExercicios indiceExercicios[], struct Exercicios exercicios[], int &cont, int cod)
+{
     int i = 0, f = cont;
     int m = (i + f) / 2;
-    for(; f >= i && cod != indiceExercicios[m].codigo; m = (i + f) / 2){
+    for(; f >= i && cod != indiceExercicios[m].codigo; m = (i + f) / 2)
+    {
         if(cod > indiceExercicios[m].codigo)
             i = m + 1;
         else
             f = m - 1;
     }
-    if(cod == indiceExercicios[m].codigo){
+    if(cod == indiceExercicios[m].codigo)
+    {
         cout << "\n\n Exercicio ja cadastrado - nao pode ser cadastrado novamente";
         i = indiceExercicios[m].endereco;
         cout << "\nCodigo do Exercicio: " << exercicios[i].cod_exercicio;
@@ -193,7 +219,7 @@ void buscaAleatoriaNaTabelaDeExercicios(struct IndiceExercicios indiceExercicios
         inclusaoNaTabelaDeExercicios(indiceExercicios, exercicios, cont, cod);
 }
 
-void inclusaoNaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], struct Usuarios usuarios[], int &cont, int cod)
+void inclusaoNaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], struct Usuarios usuarios[], int &cont, int cod, struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int contIdioma)
 {
     cont++;
     usuarios[cont].codigo = cod;
@@ -201,6 +227,7 @@ void inclusaoNaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], struct U
     gets(usuarios[cont].nome);
     cout << "Codigo do Idioma: ";
     cin >> usuarios[cont].codigo_idioma;
+    mostraDescricaoDoIdioma(indiceIdioma, idiomas, contIdioma, usuarios[cont].codigo_idioma);
     cout << "Nivel Atual: ";
     cin >> usuarios[cont].nivel_atual;
     cout << "Pontuacao Total: ";
@@ -208,7 +235,8 @@ void inclusaoNaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], struct U
     cout << "Digite o status (0 - para Registro Ativo / 1 - para Registro Excluido)";
     cin >> usuarios[cont].status;
     int i;
-    for(i = cont - 1; indiceUsuarios[i].codigo > cod; i--){
+    for(i = cont - 1; indiceUsuarios[i].codigo > cod; i--)
+    {
         indiceUsuarios[i + 1].codigo = indiceUsuarios[i].codigo;
         indiceUsuarios[i + 1].codigo = indiceUsuarios[i].endereco;
     }
@@ -217,16 +245,19 @@ void inclusaoNaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], struct U
     cout << "\n\nInclusao Realizada com Sucesso!";
 }
 
-void buscaAleatoriaNaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], struct Usuarios usuarios[], int &cont, int cod){
+void buscaAleatoriaNaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], struct Usuarios usuarios[], int &cont, int cod, struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int contIdioma)
+{
     int i = 0, f = cont;
     int m = (i + f) / 2;
-    for(; f >= i && cod != indiceUsuarios[m].codigo; m = (i + f) / 2){
+    for(; f >= i && cod != indiceUsuarios[m].codigo; m = (i + f) / 2)
+    {
         if(cod > indiceUsuarios[m].codigo)
             i = m + 1;
         else
             f = m - 1;
     }
-    if(cod == indiceUsuarios[m].codigo){
+    if(cod == indiceUsuarios[m].codigo)
+    {
         cout << "\n\n Usuario ja cadastrado - nao pode ser cadastrado novamente";
         i = indiceUsuarios[i].endereco;
         cout << "\nCodigo do Usuario: " << usuarios[i].codigo;
@@ -237,20 +268,23 @@ void buscaAleatoriaNaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], st
         cout << "\tStatus: " << usuarios[i].status;
     }
     else
-        inclusaoNaTabelaDeUsuarios(indiceUsuarios, usuarios, cont, cod);
+        inclusaoNaTabelaDeUsuarios(indiceUsuarios, usuarios, cont, cod, indiceIdioma, idiomas, contIdioma);
 }
 
-void exclusaoNaTabelaDeIdiomas(struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int &cont, int cod){
+void exclusaoNaTabelaDeIdiomas(struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int &cont, int cod)
+{
     int i = 0, f = cont;
     int m = (i + f) / 2;
-    for(; f >= i && cod != indiceIdioma[m].codigo; m = (i + f) / 2){
+    for(; f >= i && cod != indiceIdioma[m].codigo; m = (i + f) / 2)
+    {
         if(cod > indiceIdioma[m].codigo)
             i = m + 1;
         else
             f = m - 1;
     }
     i = indiceIdioma[m].endereco;
-    if((cod == indiceIdioma[m].codigo) && idiomas[i].status == 0){
+    if((cod == indiceIdioma[m].codigo) && idiomas[i].status == 0)
+    {
         idiomas[i].status = 1;
         cout << "\n\n Idioma excluido com sucesso";
     }
@@ -258,17 +292,20 @@ void exclusaoNaTabelaDeIdiomas(struct IndiceIdioma indiceIdioma[], struct Idioma
         cout << "Idioma nao cadastrado";
 }
 
-void exclusaoNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct Licoes licoes[], int &cont, int cod){
+void exclusaoNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct Licoes licoes[], int &cont, int cod)
+{
     int i = 0, f = cont;
     int m = (i + f) / 2;
-    for(; f >= i && cod != indiceLicoes[m].codigo; m = (i + f) / 2){
+    for(; f >= i && cod != indiceLicoes[m].codigo; m = (i + f) / 2)
+    {
         if(cod > indiceLicoes[m].codigo)
             i = m + 1;
         else
             f = m - 1;
     }
     i = indiceLicoes[m].endereco;
-    if((cod == indiceLicoes[m].codigo) && licoes[i].status == 0){
+    if((cod == indiceLicoes[m].codigo) && licoes[i].status == 0)
+    {
         licoes[i].status = 1;
         cout << "\n\nLicao excluida com sucesso";
     }
@@ -276,17 +313,20 @@ void exclusaoNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct Licoes 
         cout << "Licao Nao Cadastrada";
 }
 
-void exclusaoNaTabelaDeExercicios(struct IndiceExercicios indiceExercicios[], struct Exercicios exercicios[], int &cont, int cod){
+void exclusaoNaTabelaDeExercicios(struct IndiceExercicios indiceExercicios[], struct Exercicios exercicios[], int &cont, int cod)
+{
     int i = 0, f = cont;
     int m = (i + f) / 2;
-    for(; f >= i && cod != indiceExercicios[m].codigo; m = (i + f) / 2){
+    for(; f >= i && cod != indiceExercicios[m].codigo; m = (i + f) / 2)
+    {
         if(cod > indiceExercicios[m].codigo)
             i = m + 1;
         else
             f = m - 1;
     }
     i = indiceExercicios[m].endereco;
-    if((cod == indiceExercicios[m].codigo) && exercicios[i].status == 0){
+    if((cod == indiceExercicios[m].codigo) && exercicios[i].status == 0)
+    {
         exercicios[i].status = 1;
         cout << "\n\nExercicio excluido com sucesso";
     }
@@ -294,17 +334,20 @@ void exclusaoNaTabelaDeExercicios(struct IndiceExercicios indiceExercicios[], st
         cout << "Exercicio nao cadastrado";
 }
 
-void exclusaoNaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], struct Usuarios usuarios[], int &cont, int cod){
+void exclusaoNaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], struct Usuarios usuarios[], int &cont, int cod)
+{
     int i = 0, f = cont;
     int m = (i+ f)/ 2;
-    for(; f >= i && cod != indiceUsuarios[m].codigo; m = (i + f) / 2){
+    for(; f >= i && cod != indiceUsuarios[m].codigo; m = (i + f) / 2)
+    {
         if(cod > indiceUsuarios[m].codigo)
             i = m + 1;
         else
             f = m - 1;
     }
     i = indiceUsuarios[m].endereco;
-    if((cod == indiceUsuarios[m].codigo) && usuarios[i].status == 0){
+    if((cod == indiceUsuarios[m].codigo) && usuarios[i].status == 0)
+    {
         usuarios[i].status = 1;
         cout << "\n\nUsuario Excluido com sucesso";
     }
@@ -312,31 +355,40 @@ void exclusaoNaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], struct U
         cout << "Usuario nao cadastrado";
 }
 
-void leituraExaustivaNaTabelaDeIdioma(struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int cont){
-    for(int k = 0; k < cont; k++){
+void leituraExaustivaNaTabelaDeIdioma(struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int cont)
+{
+    for(int k = 0; k < cont; k++)
+    {
         int i = indiceIdioma[k].endereco;
-        if(idiomas[i].status == 0){
+        if(idiomas[i].status == 0)
+        {
             cout << "\nCodigo: " << idiomas[i].codigo;
             cout << "\tDescricao: " << idiomas[i].descricao << "\n";
         }
     }
 }
 
-void leituraExaustivaNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct Licoes licoes[], int cont){
-    for(int k = 0; k < cont; k++){
-            int i = indiceLicoes[k].endereco;
-            if(licoes[i].status == 0){
-                cout << "\nCodigo: " << licoes[i].cod_licao;
-                cout << "\tCodigo do Idioma: " << licoes[i].cod_idioma;
-                cout << "\tTotal de Niveis: " << licoes[i].total_niveis << "\n";
-            }
+void leituraExaustivaNaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct Licoes licoes[], int cont)
+{
+    for(int k = 0; k < cont; k++)
+    {
+        int i = indiceLicoes[k].endereco;
+        if(licoes[i].status == 0)
+        {
+            cout << "\nCodigo: " << licoes[i].cod_licao;
+            cout << "\tCodigo do Idioma: " << licoes[i].cod_idioma;
+            cout << "\tTotal de Niveis: " << licoes[i].total_niveis << "\n";
+        }
     }
 }
 
-void leituraExaustivaNaTabelaDeExercicios(struct IndiceExercicios indiceExercicios[], struct Exercicios exercicios[], int cont){
-    for(int k = 0; k < cont; k++){
+void leituraExaustivaNaTabelaDeExercicios(struct IndiceExercicios indiceExercicios[], struct Exercicios exercicios[], int cont)
+{
+    for(int k = 0; k < cont; k++)
+    {
         int i = indiceExercicios[k].endereco;
-        if(exercicios[i].status == 0){
+        if(exercicios[i].status == 0)
+        {
             cout << "\nCodigo: " << exercicios[i].cod_exercicio;
             cout << "\tNivel de Dificuldade: " << exercicios[i].nivel_dificuldade;
             cout << "\tDescricao: " << exercicios[i].descricao;
@@ -346,10 +398,13 @@ void leituraExaustivaNaTabelaDeExercicios(struct IndiceExercicios indiceExercici
     }
 }
 
-void leituraExaustivaNaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], struct Usuarios usuarios[], int cont){
-    for(int k = 0; k < cont; k++){
+void leituraExaustivaNaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], struct Usuarios usuarios[], int cont)
+{
+    for(int k = 0; k < cont; k++)
+    {
         int i = indiceUsuarios[k].endereco;
-        if(usuarios[i].status == 0){
+        if(usuarios[i].status == 0)
+        {
             cout << "\nCodigo: " << usuarios[i].codigo;
             cout << "\tNome: " << usuarios[i].nome;
             cout << "\tCodigo do Idioma: " << usuarios[i].codigo_idioma;
@@ -359,11 +414,14 @@ void leituraExaustivaNaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], 
     }
 }
 
-void reorganizacaoDaTabelaDeIdioma(struct IndiceIdioma indiceIdioma[], struct IndiceIdioma novoIndiceIdioma[], struct Idiomas idiomas[], struct Idiomas novoIdioma[], int &cont){
+void reorganizacaoDaTabelaDeIdioma(struct IndiceIdioma indiceIdioma[], struct IndiceIdioma novoIndiceIdioma[], struct Idiomas idiomas[], struct Idiomas novoIdioma[], int &cont)
+{
     int j = -1;
-    for (int k = 0; k < cont; k++){
+    for (int k = 0; k < cont; k++)
+    {
         int i = indiceIdioma[k].endereco;
-        if(idiomas[i].status == 0){
+        if(idiomas[i].status == 0)
+        {
             j++;
             novoIdioma[j].codigo = idiomas[i].codigo;
             strcpy(novoIdioma[j].descricao, idiomas[i].descricao);
@@ -376,11 +434,14 @@ void reorganizacaoDaTabelaDeIdioma(struct IndiceIdioma indiceIdioma[], struct In
     cout << "\n\nTabela reorganizada com sucesso!\n\n";
 }
 
-void reorganizacaoDaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct IndiceLicoes novoIndiceLicoes[], struct Licoes licoes[], struct Licoes novoLicoes[], int &cont){
+void reorganizacaoDaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct IndiceLicoes novoIndiceLicoes[], struct Licoes licoes[], struct Licoes novoLicoes[], int &cont)
+{
     int j = -1;
-    for(int k = 0; k < cont; k++){
+    for(int k = 0; k < cont; k++)
+    {
         int i = indiceLicoes[k].endereco;
-        if(licoes[i].status == 0){
+        if(licoes[i].status == 0)
+        {
             j++;
             novoLicoes[j].cod_licao = licoes[i].cod_licao;
             novoLicoes[j].cod_idioma = licoes[i].cod_idioma;
@@ -394,11 +455,14 @@ void reorganizacaoDaTabelaDeLicoes(struct IndiceLicoes indiceLicoes[], struct In
     cout << "\n\nTabela reorganizada com sucesso!\n\n";
 }
 
-void reorganizacaoDaTabelaDeExercicios(struct IndiceExercicios indiceExercicios[], struct IndiceExercicios novoIndiceExercicios[], struct Exercicios exercicios[], struct Exercicios novoExercicios[], int &cont){
+void reorganizacaoDaTabelaDeExercicios(struct IndiceExercicios indiceExercicios[], struct IndiceExercicios novoIndiceExercicios[], struct Exercicios exercicios[], struct Exercicios novoExercicios[], int &cont)
+{
     int j = -1;
-    for(int k = 0; k < cont; k++){
+    for(int k = 0; k < cont; k++)
+    {
         int i = indiceExercicios[k].endereco;
-        if(exercicios[i].status == 0){
+        if(exercicios[i].status == 0)
+        {
             j++;
             novoExercicios[j].cod_exercicio = exercicios[i].cod_exercicio;
             novoExercicios[j].nivel_dificuldade = exercicios[i].nivel_dificuldade;
@@ -414,11 +478,14 @@ void reorganizacaoDaTabelaDeExercicios(struct IndiceExercicios indiceExercicios[
     cout << "\n\nTabela reorganizada com sucesso!\n\n";
 }
 
-void reorganizacaoDaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], struct IndiceUsuarios novoIndiceUsuarios[], struct Usuarios usuarios[], struct Usuarios novoUsuarios[], int &cont){
+void reorganizacaoDaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], struct IndiceUsuarios novoIndiceUsuarios[], struct Usuarios usuarios[], struct Usuarios novoUsuarios[], int &cont)
+{
     int j = -1;
-    for(int k = 0; k < cont; k++){
+    for(int k = 0; k < cont; k++)
+    {
         int i = indiceUsuarios[k].endereco;
-        if(usuarios[i].status == 0){
+        if(usuarios[i].status == 0)
+        {
             j++;
             novoUsuarios[j].codigo = usuarios[i].codigo;
             strcpy(novoUsuarios[j].nome, usuarios[i].nome);
@@ -434,7 +501,97 @@ void reorganizacaoDaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], str
     cout << "\n\nTabela reorganizada com sucesso!\n\n";
 }
 
-int main(){
+Exercicios buscarExercicioEscolhido(struct IndiceExercicios indiceExercicios[], struct Exercicios exercicios[], int cont, int cod)
+{
+    int i = 0, f = cont - 1;
+    int m = (i + f) / 2;
+    for(; f >= i && cod != indiceExercicios[m].codigo; m = (i + f) / 2)
+    {
+        if(cod > indiceExercicios[m].codigo)
+            i = m + 1;
+        else
+            f = m - 1;
+    }
+    if(cod == indiceExercicios[m].codigo)
+    {
+        i = indiceExercicios[m].endereco;
+        return exercicios[i];
+    }
+    else
+    {
+        cout << "Exercicio nao encontrado \n";
+    }
+}
+
+Usuarios buscarUsuarioQueVaiFazerExercicio(struct IndiceUsuarios indiceUsuarios[], struct Usuarios usuarios[], int cont, int cod)
+{
+    int i = 0, f = cont - 1;
+    int m = (i + f) / 2;
+    for(; f >= i && cod != indiceUsuarios[m].codigo; m = (i + f) / 2)
+    {
+        if(cod > indiceUsuarios[m].codigo)
+            i = m + 1;
+        else
+            f = m - 1;
+    }
+    if(cod == indiceUsuarios[m].codigo)
+    {
+        i = indiceUsuarios[m].endereco;
+        return usuarios[i];
+    }
+    else
+    {
+        cout << "Usuario nao encontrado \n";
+    }
+}
+
+void praticarExercicio(struct IndiceUsuarios indiceUsuarios[], struct Usuarios usuarios[], struct IndiceExercicios indiceExercicios[], struct Exercicios exercicios[], struct IndiceLicoes indiceLicoes[], struct Licoes licoes[], struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int contIdiomas, int contLicoes, int contExercicios, int contUsuarios)
+{
+    Usuarios usuarioQueEstaPraticandoExercicio;
+    int codigoDoUsuarioQueEstaRealizandoExercicio;
+
+    int codExercicio;
+    Exercicios exercicioEscolhido;
+
+    char respostaDoUsuario[30];
+
+    cout << "Digite o codigo do usuario que esta realizando o exercicio: ";
+    cin >> codigoDoUsuarioQueEstaRealizandoExercicio;
+    usuarioQueEstaPraticandoExercicio = buscarUsuarioQueVaiFazerExercicio(indiceUsuarios, usuarios, contUsuarios, codigoDoUsuarioQueEstaRealizandoExercicio);
+
+    cout << "\n\n INFORMACOES DO USUARIO \n\n";
+    cout << "Nome: " << usuarioQueEstaPraticandoExercicio.nome << "\n";
+
+    while(codExercicio != 0)
+    {
+        cout << "Digite o codigo do exercicio que voce deseja fazer:  (0 Para Encerrar)";
+        cin >> codExercicio;
+        exercicioEscolhido = buscarExercicioEscolhido(indiceExercicios, exercicios, contExercicios, codExercicio);
+        if(exercicioEscolhido.nivel_dificuldade > usuarioQueEstaPraticandoExercicio.nivel_atual)
+        {
+            cout << "Voce nao pode praticar um exercicio que tem um nivel de dificuldade maior que seu nivel atual \n";
+            return;
+        }
+        else
+        {
+            cout << "\n\n INFORMACOES DO EXERCICIO \n\n";
+            cout << "Nivel de Dificuldade: " << exercicioEscolhido.nivel_dificuldade << "\n";
+            cout << "Descricao: " << exercicioEscolhido.descricao << "\n";
+            cout << "Digite a alternativa da sua resposta: ";
+            cin >> respostaDoUsuario;
+            if(strcmp(exercicioEscolhido.resposta_correta, respostaDoUsuario) == 0){
+                cout << "\n\nRESPOSTA CORRETA\n\n";
+            }else{
+                cout << "\n\nRESPOSTA INCORRETA\n\n";
+                usuarioQueEstaPraticandoExercicio.pontuacao_total = usuarioQueEstaPraticandoExercicio.pontuacao_total - (usuarioQueEstaPraticandoExercicio.pontuacao_total * 0.10);
+            }
+        }
+    }
+
+}
+
+int main()
+{
     //INDICES
     IndiceIdioma indiceIdioma[5];
     IndiceLicoes indiceLicoes[5];
@@ -643,148 +800,170 @@ int main(){
     vUsuarios[4].pontuacao_total = 7;
     vUsuarios[4].status = 0;
 
-    do{
-      cout << "Selecione uma opcao: \n";
-      cout << "1 - Realizar Inclusao na Tabela de Idioma \n";
-      cout << "2 - Realizar Inclusao na Tabela de Licoes \n";
-      cout << "3 - Realizar Inclusao na Tabela de Exercicio \n";
-      cout << "4 - Realizar Inclusao na Tabela de Usuarios \n";
-      cout << "5 - Realizar Exclusao na Tabela de Idioma \n";
-      cout << "6 - Realizar Exclusao na Tabela de Licoes \n";
-      cout << "7 - Realizar Exclusao na Tabela de Exercicios \n";
-      cout << "8 - Realizar Exclusao na Tabela de Usuarios \n";
-      cout << "9 - Realizar Leitura Exaustiva na Tabela de Idioma \n";
-      cout << "10 - Realizar Leitura Exaustiva na Tabela de Licoes \n";
-      cout << "11 - Realizar Leitura Exaustiva na Tabela de Exercicios \n";
-      cout << "12 - Realizar Leitura Exaustiva na Tabela de Usuarios \n";
-      cout << "13 - Realizar Reorganizacao na Tabela de Idioma \n";
-      cout << "14 - Realizar Reorganizacao na Tabela de Licoes \n";
-      cout << "15 - Realizar Reorganizacao na Tabela de Exercicios \n";
-      cout << "16 - Realizar Reorganizacao na Tabela de Usuarios \n";
-      cout << "0 - Para Encerrar\n";
-      cin >> opcao;
-      switch(opcao)
-      {
-      case 1:
-        cout << "Voce escolheu realizar inclusao na tabela de Idiomas \n";
-        for(int codIdioma = 5; codIdioma != 0;){
-            cout << "\n\nInforme o Codigo do Idioma  a ser inserido (0 Para Encerrar): ";
-            cin >> codIdioma;
-            cin.ignore();
-            if (codIdioma != 0){
-                buscaAleatoriaNaTabelaDeIdiomas(indiceIdioma, vIdioma, contIdioma, codIdioma);
+    do
+    {
+        cout << "Selecione uma opcao: \n";
+        cout << "1 - Realizar Inclusao na Tabela de Idioma \n";
+        cout << "2 - Realizar Inclusao na Tabela de Licoes \n";
+        cout << "3 - Realizar Inclusao na Tabela de Exercicio \n";
+        cout << "4 - Realizar Inclusao na Tabela de Usuarios \n";
+        cout << "5 - Realizar Exclusao na Tabela de Idioma \n";
+        cout << "6 - Realizar Exclusao na Tabela de Licoes \n";
+        cout << "7 - Realizar Exclusao na Tabela de Exercicios \n";
+        cout << "8 - Realizar Exclusao na Tabela de Usuarios \n";
+        cout << "9 - Realizar Leitura Exaustiva na Tabela de Idioma \n";
+        cout << "10 - Realizar Leitura Exaustiva na Tabela de Licoes \n";
+        cout << "11 - Realizar Leitura Exaustiva na Tabela de Exercicios \n";
+        cout << "12 - Realizar Leitura Exaustiva na Tabela de Usuarios \n";
+        cout << "13 - Realizar Reorganizacao na Tabela de Idioma \n";
+        cout << "14 - Realizar Reorganizacao na Tabela de Licoes \n";
+        cout << "15 - Realizar Reorganizacao na Tabela de Exercicios \n";
+        cout << "16 - Realizar Reorganizacao na Tabela de Usuarios \n";
+        cout << "17 - Praticar Exercicios \n";
+        cout << "0 - Para Encerrar\n";
+        cin >> opcao;
+        switch(opcao)
+        {
+        case 1:
+            cout << "Voce escolheu realizar inclusao na tabela de Idiomas \n";
+            for(int codIdioma = 5; codIdioma != 0;)
+            {
+                cout << "\n\nInforme o Codigo do Idioma  a ser inserido (0 Para Encerrar): ";
+                cin >> codIdioma;
+                cin.ignore();
+                if (codIdioma != 0)
+                {
+                    buscaAleatoriaNaTabelaDeIdiomas(indiceIdioma, vIdioma, contIdioma, codIdioma);
+                }
             }
-        }
-        break;
-      case 2:
-        cout << "Voce escolheu realizar inclusao na tabela de Licoes \n";
-        for(int codLicao = 5; codLicao != 0;){
-            cout << "\n\nInforme o Codigo da Licao a ser inserida (0 Para Encerrar): ";
-            cin >> codLicao;
-            if(codLicao != 0){
-                buscaAleatoriaNaTabelaDeLicoes(indiceLicoes, vLicoes, contLicoes, codLicao, indiceIdioma, vIdioma, contIdioma);
+            break;
+        case 2:
+            cout << "Voce escolheu realizar inclusao na tabela de Licoes \n";
+            for(int codLicao = 5; codLicao != 0;)
+            {
+                cout << "\n\nInforme o Codigo da Licao a ser inserida (0 Para Encerrar): ";
+                cin >> codLicao;
+                if(codLicao != 0)
+                {
+                    buscaAleatoriaNaTabelaDeLicoes(indiceLicoes, vLicoes, contLicoes, codLicao, indiceIdioma, vIdioma, contIdioma);
+                }
             }
-        }
-        break;
-      case 3:
-        cout << "Voce escolheu realizar inclusao na tabela de Exercicio \n";
-        for(int codExercicio = 5; codExercicio != 0;){
-            cout << "\n\nInforme o Codigo do Exercicio a ser incluido (0 Para Encerrar): ";
-            cin >> codExercicio;
-            if(codExercicio != 0){
-                buscaAleatoriaNaTabelaDeExercicios(indiceExercicios, vExercicios, contExercicio, codExercicio);
+            break;
+        case 3:
+            cout << "Voce escolheu realizar inclusao na tabela de Exercicio \n";
+            for(int codExercicio = 5; codExercicio != 0;)
+            {
+                cout << "\n\nInforme o Codigo do Exercicio a ser incluido (0 Para Encerrar): ";
+                cin >> codExercicio;
+                if(codExercicio != 0)
+                {
+                    buscaAleatoriaNaTabelaDeExercicios(indiceExercicios, vExercicios, contExercicio, codExercicio);
+                }
             }
-        }
-        break;
-      case 4:
-        cout << "Voce escolheu realizar inclusao na tabela de Usuarios \n";
-        for(int codUsuario = 5; codUsuario != 0;){
-            cout << "\n\nInforme o Codigo do Usuario a ser incluido (0 Para Encerrar): ";
-            cin >> codUsuario;
-            cin.ignore();
-            if(codUsuario != 0){
-                buscaAleatoriaNaTabelaDeUsuarios(indiceUsuarios, vUsuarios, contUsuario, codUsuario);
+            break;
+        case 4:
+            cout << "Voce escolheu realizar inclusao na tabela de Usuarios \n";
+            for(int codUsuario = 5; codUsuario != 0;)
+            {
+                cout << "\n\nInforme o Codigo do Usuario a ser incluido (0 Para Encerrar): ";
+                cin >> codUsuario;
+                cin.ignore();
+                if(codUsuario != 0)
+                {
+                    buscaAleatoriaNaTabelaDeUsuarios(indiceUsuarios, vUsuarios, contUsuario, codUsuario, indiceIdioma, vIdioma, contIdioma);
+                }
             }
-        }
-        break;
-      case 5:
-        cout << "Voce escolheu realizar exclusao na tabela de idiomas \n";
-        for(int codIdioma = 5; codIdioma != 0;){
-            cout << "\n\nInforme o codigo do idioma a ser excluido (0 Para Encerrar): ";
-            cin >> codIdioma;
-            if(codIdioma != 0){
-                exclusaoNaTabelaDeIdiomas(indiceIdioma, vIdioma, contIdioma, codIdioma);
+            break;
+        case 5:
+            cout << "Voce escolheu realizar exclusao na tabela de idiomas \n";
+            for(int codIdioma = 5; codIdioma != 0;)
+            {
+                cout << "\n\nInforme o codigo do idioma a ser excluido (0 Para Encerrar): ";
+                cin >> codIdioma;
+                if(codIdioma != 0)
+                {
+                    exclusaoNaTabelaDeIdiomas(indiceIdioma, vIdioma, contIdioma, codIdioma);
+                }
             }
-        }
-        break;
-      case 6:
-        cout << "Voce escolheu realizar exclusao na tabela de licoes \n";
-        for(int codLicoes = 5; codLicoes != 0;){
-            cout << "\n\nInforme o codigo da licao a ser excluida (0 Para Encerrar): ";
-            cin >> codLicoes;
-            if(codLicoes != 0){
-                exclusaoNaTabelaDeLicoes(indiceLicoes, vLicoes, contLicoes, codLicoes);
+            break;
+        case 6:
+            cout << "Voce escolheu realizar exclusao na tabela de licoes \n";
+            for(int codLicoes = 5; codLicoes != 0;)
+            {
+                cout << "\n\nInforme o codigo da licao a ser excluida (0 Para Encerrar): ";
+                cin >> codLicoes;
+                if(codLicoes != 0)
+                {
+                    exclusaoNaTabelaDeLicoes(indiceLicoes, vLicoes, contLicoes, codLicoes);
+                }
             }
-        }
-        break;
-      case 7:
-        cout << "Voce escolheu realizar exclusao na tabela de exercicios \n";
-        for(int codExercicio = 5; codExercicio != 0;){
-            cout << "\n\nInforme o codigo do exercicio a ser excluido (0 Para Encerrar): ";
-            cin >> codExercicio;
-            if(codExercicio != 0){
-                exclusaoNaTabelaDeExercicios(indiceExercicios, vExercicios, contExercicio, codExercicio);
+            break;
+        case 7:
+            cout << "Voce escolheu realizar exclusao na tabela de exercicios \n";
+            for(int codExercicio = 5; codExercicio != 0;)
+            {
+                cout << "\n\nInforme o codigo do exercicio a ser excluido (0 Para Encerrar): ";
+                cin >> codExercicio;
+                if(codExercicio != 0)
+                {
+                    exclusaoNaTabelaDeExercicios(indiceExercicios, vExercicios, contExercicio, codExercicio);
+                }
             }
-        }
-        break;
-      case 8:
-        cout << "Voce escolheu realizar exclusao na tabela de usuarios \n";
-        for(int codUsuario = 5; codUsuario != 0;){
-            cout << "\n\nInforme o codigo do usuario a ser excluido (0 Para Encerrar): ";
-            cin >> codUsuario;
-            if(codUsuario != 0){
-                exclusaoNaTabelaDeUsuarios(indiceUsuarios, vUsuarios, contUsuario, codUsuario);
+            break;
+        case 8:
+            cout << "Voce escolheu realizar exclusao na tabela de usuarios \n";
+            for(int codUsuario = 5; codUsuario != 0;)
+            {
+                cout << "\n\nInforme o codigo do usuario a ser excluido (0 Para Encerrar): ";
+                cin >> codUsuario;
+                if(codUsuario != 0)
+                {
+                    exclusaoNaTabelaDeUsuarios(indiceUsuarios, vUsuarios, contUsuario, codUsuario);
+                }
             }
+        case 9:
+            cout << "Voce escolheu realizar leitura exaustiva na tabela de Idiomas \n";
+            leituraExaustivaNaTabelaDeIdioma(indiceIdioma, vIdioma, contIdioma);
+            break;
+        case 10:
+            cout << "Voce escolheu realizar leitura exaustiva na tabela de Licoes \n";
+            leituraExaustivaNaTabelaDeLicoes(indiceLicoes, vLicoes, contLicoes);
+            break;
+        case 11:
+            cout << "Voce escolheu realizar leitura exaustiva na tabela de Exercicios \n";
+            leituraExaustivaNaTabelaDeExercicios(indiceExercicios, vExercicios, contExercicio);
+            break;
+        case 12:
+            cout << "Voce escolheu realizar leitura exaustiva na tabela de Usuarios \n";
+            leituraExaustivaNaTabelaDeUsuarios(indiceUsuarios, vUsuarios, contUsuario);
+            break;
+        case 13:
+            cout << "Voce escolheu realizar reorganizacao na tabela de idiomas \n";
+            reorganizacaoDaTabelaDeIdioma(indiceIdioma, novoIndiceIdioma, vIdioma, novoVetIdioma, contIdioma);
+            break;
+        case 14:
+            cout << "Voce escolheu realizar reorganizacao na tabela de licoes \n";
+            reorganizacaoDaTabelaDeLicoes(indiceLicoes, novoIndiceLicoes, vLicoes, novoVetLicoes, contLicoes);
+            break;
+        case 15:
+            cout << "Voce escolheu realizar reorganizacao na tabela de exercicios \n";
+            reorganizacaoDaTabelaDeExercicios(indiceExercicios, novoIndiceExercicios, vExercicios, novoVetExercicios, contExercicio);
+            break;
+        case 16:
+            cout << "Voce escolheu realizar reorganizacao na tabela de usuarios \n";
+            reorganizacaoDaTabelaDeUsuarios(indiceUsuarios, novoIndiceUsuarios, vUsuarios, novoVetUsuarios, contUsuario);
+            break;
+        case 17:
+            cout << "Voce escolheu praticar exercicios \n";
+            praticarExercicio(indiceUsuarios, vUsuarios, indiceExercicios, vExercicios, indiceLicoes, vLicoes, indiceIdioma, vIdioma, contIdioma, contLicoes, contExercicio, contUsuario);
+            break;
+        case 0:
+            cout << "Encerrando o programa... \n";
+            break;
+        default:
+            cout << "Opcao Invalida. Tente Novamente. \n";
+            break;
         }
-      case 9:
-        cout << "Voce escolheu realizar leitura exaustiva na tabela de Idiomas \n";
-        leituraExaustivaNaTabelaDeIdioma(indiceIdioma, vIdioma, contIdioma);
-        break;
-      case 10:
-        cout << "Voce escolheu realizar leitura exaustiva na tabela de Licoes \n";
-        leituraExaustivaNaTabelaDeLicoes(indiceLicoes, vLicoes, contLicoes);
-        break;
-      case 11:
-        cout << "Voce escolheu realizar leitura exaustiva na tabela de Exercicios \n";
-        leituraExaustivaNaTabelaDeExercicios(indiceExercicios, vExercicios, contExercicio);
-        break;
-      case 12:
-        cout << "Voce escolheu realizar leitura exaustiva na tabela de Usuarios \n";
-        leituraExaustivaNaTabelaDeUsuarios(indiceUsuarios, vUsuarios, contUsuario);
-        break;
-      case 13:
-        cout << "Voce escolheu realizar reorganizacao na tabela de idiomas \n";
-        reorganizacaoDaTabelaDeIdioma(indiceIdioma, novoIndiceIdioma, vIdioma, novoVetIdioma, contIdioma);
-        break;
-      case 14:
-        cout << "Voce escolheu realizar reorganizacao na tabela de licoes \n";
-        reorganizacaoDaTabelaDeLicoes(indiceLicoes, novoIndiceLicoes, vLicoes, novoVetLicoes, contLicoes);
-        break;
-      case 15:
-        cout << "Voce escolheu realizar reorganizacao na tabela de exercicios \n";
-        reorganizacaoDaTabelaDeExercicios(indiceExercicios, novoIndiceExercicios, vExercicios, novoVetExercicios, contExercicio);
-        break;
-      case 16:
-        cout << "Voce escolheu realizar reorganizacao na tabela de usuarios \n";
-        reorganizacaoDaTabelaDeUsuarios(indiceUsuarios, novoIndiceUsuarios, vUsuarios, novoVetUsuarios, contUsuario);
-        break;
-      case 0:
-        cout << "Encerrando o programa... \n";
-        break;
-      default:
-        cout << "Opcao Invalida. Tente Novamente. \n";
-        break;
-      }
     }
     while(opcao != 0);
     return 0;
