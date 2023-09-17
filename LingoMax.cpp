@@ -501,43 +501,103 @@ void reorganizacaoDaTabelaDeUsuarios(struct IndiceUsuarios indiceUsuarios[], str
     cout << "\n\nTabela reorganizada com sucesso!\n\n";
 }
 
-Exercicios buscarExercicioEscolhido(struct IndiceExercicios indiceExercicios[], struct Exercicios exercicios[], int cont, int cod)
+void realizarExercicio(struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], struct IndiceLicoes indiceLicoes[], struct Licoes licoes[], struct IndiceExercicios indiceExercicios[], struct Exercicios exercicios[], struct IndiceUsuarios indiceUsuarios[], struct Usuarios usuarios[], int contIdiomas, int contLicoes, int contExercicios, int contUsuarios)
 {
-    int i = 0, f = cont - 1;
-    int m = (i + f) / 2;
-    for(; f >= i && cod != indiceExercicios[m].codigo; m = (i + f) / 2)
-    {
-        if(cod > indiceExercicios[m].codigo)
-            i = m + 1;
-        else
-            f = m - 1;
-    }
-    if(cod == indiceExercicios[m].codigo)
-    {
-        i = indiceExercicios[m].endereco;
-        return exercicios[i];
-    }
-    else
-    {
-        cout << "Exercicio nao encontrado \n";
-    }
-}
+    int codigoDoUsuarioQueIraRealizarExercicio;
+    int codigoDoExercicioDesejado;
+    char respostaDoUsuarioAoExercicio[30];
+    int codigoDaLicaoDesejada;
+    cout << "Digite o codigo do usuario que esta realizando o exercicio: ";
+    cin >> codigoDoUsuarioQueIraRealizarExercicio;
 
-Usuarios buscarUsuarioQueVaiFazerExercicio(struct IndiceUsuarios indiceUsuarios[], struct Usuarios usuarios[], int cont, int cod)
-{
-    int i = 0, f = cont - 1;
-    int m = (i + f) / 2;
-    for(; f >= i && cod != indiceUsuarios[m].codigo; m = (i + f) / 2)
+    int iDoUsuario = 0, fDoUsuario = contUsuarios - 1;
+    int mDoUsuario = (iDoUsuario + fDoUsuario) / 2;
+    for(; fDoUsuario >= iDoUsuario && codigoDoUsuarioQueIraRealizarExercicio != indiceUsuarios[mDoUsuario].codigo; mDoUsuario = (iDoUsuario + fDoUsuario) / 2)
     {
-        if(cod > indiceUsuarios[m].codigo)
-            i = m + 1;
+        if(codigoDoUsuarioQueIraRealizarExercicio > indiceUsuarios[mDoUsuario].codigo)
+            iDoUsuario = mDoUsuario + 1;
         else
-            f = m - 1;
+            fDoUsuario = mDoUsuario - 1;
     }
-    if(cod == indiceUsuarios[m].codigo)
+    if(codigoDoUsuarioQueIraRealizarExercicio == indiceUsuarios[mDoUsuario].codigo)
     {
-        i = indiceUsuarios[m].endereco;
-        return usuarios[i];
+        iDoUsuario = indiceUsuarios[mDoUsuario].endereco;
+        cout << "\n\n INFORMACOES DO USUARIO \n\n";
+        cout << "Nome: " << usuarios[iDoUsuario].nome << "\n";
+
+        cout << "Digite o codigo do exercicio que voce deseja fazer: ";
+        cin >> codigoDoExercicioDesejado;
+        cin.ignore();
+
+        int iDoExercicio = 0, fDoExercicio = contExercicios - 1;
+        int mDoExercicio = (iDoExercicio + fDoExercicio) / 2;
+        for(; fDoExercicio >= iDoExercicio && codigoDoExercicioDesejado != indiceExercicios[mDoExercicio].codigo; mDoExercicio = (iDoExercicio + fDoExercicio) / 2)
+        {
+            if(codigoDoExercicioDesejado > indiceExercicios[mDoExercicio].codigo)
+                iDoExercicio = mDoExercicio + 1;
+            else
+                fDoExercicio = mDoExercicio - 1;
+        }
+        if(codigoDoExercicioDesejado == indiceExercicios[mDoExercicio].codigo)
+        {
+            iDoExercicio = indiceExercicios[mDoExercicio].endereco;
+            if(exercicios[iDoExercicio].nivel_dificuldade <= usuarios[iDoUsuario].nivel_atual)
+            {
+                cout << "\n\nINFORMACOES DO EXERCICIO\n\n";
+                cout << "Descricao: " << exercicios[iDoExercicio].descricao << "\n";
+                cout << "Sua Resposta: ";
+                gets(respostaDoUsuarioAoExercicio);
+                if(strcmp(exercicios[iDoExercicio].resposta_correta, respostaDoUsuarioAoExercicio) == 0)
+                {
+                    cout << "\n\nVOCE RESPONDEU AO EXERCICIO CORRETAMENTE\n\n";
+                    usuarios[iDoUsuario].pontuacao_total = usuarios[iDoUsuario].pontuacao_total + exercicios[iDoExercicio].pontuacao;
+                    if(usuarios[iDoUsuario].pontuacao_total == 100 || usuarios[iDoUsuario].pontuacao_total < 100)
+                    {
+                        cout << "\n\nVOCE FOI PROMOVIDO AO PROXIMO NIVEL, SERA ADICIONADO UMA UNIDADE AO SEU NIVEL ATUAL\n\n ";
+                        usuarios[iDoUsuario].nivel_atual = usuarios[iDoUsuario].nivel_atual + 1;
+
+                        cout << "Digite o codigo ao qual essa licao pertence: ";
+                        cin >> codigoDaLicaoDesejada;
+
+                        int iDaLicao = 0, fDaLicao = contLicoes - 1;
+                        int mDaLicao = (iDaLicao + fDaLicao) / 2;
+                        for(; fDaLicao >= iDaLicao && codigoDaLicaoDesejada != indiceLicoes[mDaLicao].codigo; mDaLicao = (iDaLicao + fDaLicao) / 2)
+                        {
+                            if(codigoDaLicaoDesejada > indiceLicoes[mDaLicao].codigo)
+                                iDaLicao = mDaLicao + 1;
+                            else
+                                fDaLicao = mDaLicao - 1;
+                        }
+                        if(codigoDaLicaoDesejada == indiceLicoes[mDaLicao].codigo)
+                        {
+                            iDaLicao = indiceLicoes[mDaLicao].endereco;
+                            if(usuarios[iDoUsuario].nivel_atual == licoes[iDaLicao].total_niveis){
+                                cout << "\n\nVoce atingiu o total de niveis dessa licao, agora voce tem direito a um certificado de proficiencia\n\n";
+                            }else{
+                                cout << "\n\nContinue em frente para atingir o certificado de proficiencia\n\n";
+                            }
+                        }
+                        else
+                        {
+                            cout << "\n\n Licao Nao Encontrada \n\n";
+                        }
+                    }
+                }
+                else
+                {
+                    cout << "\n\nVOCE RESPONDEU AO EXERCICIO INCORRETAMENTE\n\n";
+                    usuarios[iDoUsuario].pontuacao_total = usuarios[iDoUsuario].pontuacao_total - (usuarios[iDoUsuario].pontuacao_total * 0.10);
+                }
+            }
+            else
+            {
+                cout << "Voce nao pode realizar esse exercicio pois ele e de um nivel maior que o seu nivel atual \n";
+            }
+        }
+        else
+        {
+            cout << "Exercicio nao encontrado\n";
+        }
     }
     else
     {
@@ -545,49 +605,20 @@ Usuarios buscarUsuarioQueVaiFazerExercicio(struct IndiceUsuarios indiceUsuarios[
     }
 }
 
-void praticarExercicio(struct IndiceUsuarios indiceUsuarios[], struct Usuarios usuarios[], struct IndiceExercicios indiceExercicios[], struct Exercicios exercicios[], struct IndiceLicoes indiceLicoes[], struct Licoes licoes[], struct IndiceIdioma indiceIdioma[], struct Idiomas idiomas[], int contIdiomas, int contLicoes, int contExercicios, int contUsuarios)
-{
-    Usuarios usuarioQueEstaPraticandoExercicio;
-    int codigoDoUsuarioQueEstaRealizandoExercicio;
-
-    int codExercicio;
-    Exercicios exercicioEscolhido;
-
-    char respostaDoUsuario[30];
-
-    cout << "Digite o codigo do usuario que esta realizando o exercicio: ";
-    cin >> codigoDoUsuarioQueEstaRealizandoExercicio;
-    usuarioQueEstaPraticandoExercicio = buscarUsuarioQueVaiFazerExercicio(indiceUsuarios, usuarios, contUsuarios, codigoDoUsuarioQueEstaRealizandoExercicio);
-
-    cout << "\n\n INFORMACOES DO USUARIO \n\n";
-    cout << "Nome: " << usuarioQueEstaPraticandoExercicio.nome << "\n";
-
-    while(codExercicio != 0)
-    {
-        cout << "Digite o codigo do exercicio que voce deseja fazer:  (0 Para Encerrar)";
-        cin >> codExercicio;
-        exercicioEscolhido = buscarExercicioEscolhido(indiceExercicios, exercicios, contExercicios, codExercicio);
-        if(exercicioEscolhido.nivel_dificuldade > usuarioQueEstaPraticandoExercicio.nivel_atual)
-        {
-            cout << "Voce nao pode praticar um exercicio que tem um nivel de dificuldade maior que seu nivel atual \n";
-            return;
-        }
-        else
-        {
-            cout << "\n\n INFORMACOES DO EXERCICIO \n\n";
-            cout << "Nivel de Dificuldade: " << exercicioEscolhido.nivel_dificuldade << "\n";
-            cout << "Descricao: " << exercicioEscolhido.descricao << "\n";
-            cout << "Digite a alternativa da sua resposta: ";
-            cin >> respostaDoUsuario;
-            if(strcmp(exercicioEscolhido.resposta_correta, respostaDoUsuario) == 0){
-                cout << "\n\nRESPOSTA CORRETA\n\n";
-            }else{
-                cout << "\n\nRESPOSTA INCORRETA\n\n";
-                usuarioQueEstaPraticandoExercicio.pontuacao_total = usuarioQueEstaPraticandoExercicio.pontuacao_total - (usuarioQueEstaPraticandoExercicio.pontuacao_total * 0.10);
+void selectionSortUsuariosPorPontuacao(Usuarios usuarios[], IndiceUsuarios indiceUsuarios[], int n){
+    for(int i = 0; i < n - 1; i++){
+        int maxIndex = i;
+        for(int j = i + 1; j < n; j++){
+            if(usuarios[indiceUsuarios[j].endereco].pontuacao_total > usuarios[indiceUsuarios[maxIndex].endereco].pontuacao_total){
+                maxIndex = j;
             }
         }
+        if(maxIndex != i){
+            int temp = indiceUsuarios[i].endereco;
+            indiceUsuarios[i].endereco = indiceUsuarios[maxIndex].endereco;
+            indiceUsuarios[maxIndex].endereco = temp;
+        }
     }
-
 }
 
 int main()
@@ -783,7 +814,7 @@ int main()
     strcpy(vUsuarios[2].nome, "Almir Rogerio Camolesi");
     vUsuarios[2].codigo_idioma = 3;
     vUsuarios[2].nivel_atual = 7;
-    vUsuarios[2].pontuacao_total = 14;
+    vUsuarios[2].pontuacao_total = 84;
     vUsuarios[2].status = 0;
 
     vUsuarios[3].codigo = 6;
@@ -820,6 +851,7 @@ int main()
         cout << "15 - Realizar Reorganizacao na Tabela de Exercicios \n";
         cout << "16 - Realizar Reorganizacao na Tabela de Usuarios \n";
         cout << "17 - Praticar Exercicios \n";
+        cout << "18 - Realizar Rankeamento de usuarios \n";
         cout << "0 - Para Encerrar\n";
         cin >> opcao;
         switch(opcao)
@@ -955,7 +987,14 @@ int main()
             break;
         case 17:
             cout << "Voce escolheu praticar exercicios \n";
-            praticarExercicio(indiceUsuarios, vUsuarios, indiceExercicios, vExercicios, indiceLicoes, vLicoes, indiceIdioma, vIdioma, contIdioma, contLicoes, contExercicio, contUsuario);
+            realizarExercicio(indiceIdioma, vIdioma, indiceLicoes, vLicoes, indiceExercicios, vExercicios, indiceUsuarios, vUsuarios, contIdioma, contLicoes, contExercicio, contUsuario);
+            break;
+        case 18:
+            selectionSortUsuariosPorPontuacao(vUsuarios, indiceUsuarios, contUsuario);
+            for(int i = 0; i < contUsuario; i++){
+                int enderecoUsuario = indiceUsuarios[i].endereco;
+                cout << "Nome: " << vUsuarios[enderecoUsuario].nome << ", Pontuacao Total: " << vUsuarios[enderecoUsuario].pontuacao_total << "\n";
+            }
             break;
         case 0:
             cout << "Encerrando o programa... \n";
