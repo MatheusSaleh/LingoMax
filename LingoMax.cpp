@@ -571,9 +571,12 @@ void realizarExercicio(struct IndiceIdioma indiceIdioma[], struct Idiomas idioma
                         if(codigoDaLicaoDesejada == indiceLicoes[mDaLicao].codigo)
                         {
                             iDaLicao = indiceLicoes[mDaLicao].endereco;
-                            if(usuarios[iDoUsuario].nivel_atual == licoes[iDaLicao].total_niveis){
+                            if(usuarios[iDoUsuario].nivel_atual == licoes[iDaLicao].total_niveis)
+                            {
                                 cout << "\n\nVoce atingiu o total de niveis dessa licao, agora voce tem direito a um certificado de proficiencia\n\n";
-                            }else{
+                            }
+                            else
+                            {
                                 cout << "\n\nContinue em frente para atingir o certificado de proficiencia\n\n";
                             }
                         }
@@ -605,15 +608,20 @@ void realizarExercicio(struct IndiceIdioma indiceIdioma[], struct Idiomas idioma
     }
 }
 
-void selectionSortUsuariosPorPontuacao(Usuarios usuarios[], IndiceUsuarios indiceUsuarios[], int n){
-    for(int i = 0; i < n - 1; i++){
+void selectionSortUsuariosPorPontuacao(Usuarios usuarios[], IndiceUsuarios indiceUsuarios[], int n)
+{
+    for(int i = 0; i < n - 1; i++)
+    {
         int maxIndex = i;
-        for(int j = i + 1; j < n; j++){
-            if(usuarios[indiceUsuarios[j].endereco].pontuacao_total > usuarios[indiceUsuarios[maxIndex].endereco].pontuacao_total){
+        for(int j = i + 1; j < n; j++)
+        {
+            if(usuarios[indiceUsuarios[j].endereco].pontuacao_total > usuarios[indiceUsuarios[maxIndex].endereco].pontuacao_total)
+            {
                 maxIndex = j;
             }
         }
-        if(maxIndex != i){
+        if(maxIndex != i)
+        {
             int temp = indiceUsuarios[i].endereco;
             indiceUsuarios[i].endereco = indiceUsuarios[maxIndex].endereco;
             indiceUsuarios[maxIndex].endereco = temp;
@@ -654,6 +662,9 @@ int main()
     int contLicoes = 5;
     int contExercicio = 5;
     int contUsuario = 5;
+
+    //CODIGO
+    int codIdioma;
 
     //Tabela Do Indice De Idioma
     indiceIdioma[0].codigo = 1;
@@ -858,16 +869,15 @@ int main()
         {
         case 1:
             cout << "Voce escolheu realizar inclusao na tabela de Idiomas \n";
-            for(int codIdioma = 5; codIdioma != 0;)
+
+            cout << "\n\nInforme o Codigo do Idioma  a ser inserido (0 Para Encerrar): ";
+            cin >> codIdioma;
+            cin.ignore();
+            if (codIdioma != 0)
             {
-                cout << "\n\nInforme o Codigo do Idioma  a ser inserido (0 Para Encerrar): ";
-                cin >> codIdioma;
-                cin.ignore();
-                if (codIdioma != 0)
-                {
-                    buscaAleatoriaNaTabelaDeIdiomas(indiceIdioma, vIdioma, contIdioma, codIdioma);
-                }
+                buscaAleatoriaNaTabelaDeIdiomas(indiceIdioma, vIdioma, contIdioma, codIdioma);
             }
+
             break;
         case 2:
             cout << "Voce escolheu realizar inclusao na tabela de Licoes \n";
@@ -991,7 +1001,8 @@ int main()
             break;
         case 18:
             selectionSortUsuariosPorPontuacao(vUsuarios, indiceUsuarios, contUsuario);
-            for(int i = 0; i < contUsuario; i++){
+            for(int i = 0; i < contUsuario; i++)
+            {
                 int enderecoUsuario = indiceUsuarios[i].endereco;
                 cout << "Nome: " << vUsuarios[enderecoUsuario].nome << ", Pontuacao Total: " << vUsuarios[enderecoUsuario].pontuacao_total << "\n";
             }
