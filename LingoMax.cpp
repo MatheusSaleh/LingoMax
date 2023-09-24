@@ -632,28 +632,28 @@ void selectionSortUsuariosPorPontuacao(Usuarios usuarios[], IndiceUsuarios indic
 int main()
 {
     //INDICES
-    IndiceIdioma indiceIdioma[5];
-    IndiceLicoes indiceLicoes[5];
-    IndiceExercicios indiceExercicios[5];
-    IndiceUsuarios indiceUsuarios[5];
+    IndiceIdioma indiceIdioma[10];
+    IndiceLicoes indiceLicoes[10];
+    IndiceExercicios indiceExercicios[10];
+    IndiceUsuarios indiceUsuarios[10];
 
     //TABELAS
-    Idiomas vIdioma[5];
-    Licoes vLicoes[5];
-    Exercicios vExercicios[5];
-    Usuarios vUsuarios[5];
+    Idiomas vIdioma[10];
+    Licoes vLicoes[10];
+    Exercicios vExercicios[10];
+    Usuarios vUsuarios[10];
 
     //NOVAS TABELAS
-    Idiomas novoVetIdioma[5];
-    Licoes novoVetLicoes[5];
-    Exercicios novoVetExercicios[5];
-    Usuarios novoVetUsuarios[5];
+    Idiomas novoVetIdioma[10];
+    Licoes novoVetLicoes[10];
+    Exercicios novoVetExercicios[10];
+    Usuarios novoVetUsuarios[10];
 
     //NOVOS INDICES
-    IndiceIdioma novoIndiceIdioma[5];
-    IndiceLicoes novoIndiceLicoes[5];
-    IndiceExercicios novoIndiceExercicios[5];
-    IndiceUsuarios novoIndiceUsuarios[5];
+    IndiceIdioma novoIndiceIdioma[10];
+    IndiceLicoes novoIndiceLicoes[10];
+    IndiceExercicios novoIndiceExercicios[10];
+    IndiceUsuarios novoIndiceUsuarios[10];
 
     int opcao;
 
